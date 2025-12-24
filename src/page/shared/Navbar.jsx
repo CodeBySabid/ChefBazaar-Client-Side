@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
-import { IoMenuOutline } from 'react-icons/io5';
+import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router';
 import logo from '../../assets/chef-logo-restaurant-food-vector-600w-1739601476.webp'
+import '../ButtonStyle/loginbutton.css'
 
 const Navbar = () => {
     const [hideNav, setHideNav] = useState(false);
     const lastScroll = useRef(0);
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
+    const [theme, setTheme] = useState("dark");
 
     useEffect(() => {
         const handleScroll = () => {
-            if(window.scrollY > lastScroll.current){
+            if (window.scrollY > lastScroll.current) {
                 setHideNav(true);
             }
-            else{
+            else {
                 setHideNav(false);
             }
             lastScroll.current = window.scrollY;
@@ -26,17 +28,17 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleClickOutsite = (e) => {
-            if(open && dropDown.current && dropDown.current.contains(e.target)) {
+            if (open && dropDown.current && !dropDown.current.contains(e.target)) {
                 setOpen(false);
             }
-        }
+        };
         document.addEventListener("mousedown", handleClickOutsite);
         return () => document.removeEventListener("mousedown", handleClickOutsite);
     }, [open]);
 
     useEffect(() => {
         const handleScrollOutsite = () => {
-            if(open) {
+            if (open) {
                 setOpen(false);
             }
         }
@@ -46,7 +48,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            if(window.innerWidth >= 1024){
+            if (window.innerWidth >= 1024) {
                 setOpen(false)
             }
         }
@@ -54,9 +56,19 @@ const Navbar = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, [])
 
+    const toggleTheme = () => {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+    }
+
+    useEffect(() => {
+        document.documentElement.setAttribute("dark-theme", theme);
+    }, [theme])
+
     const links = <>
-    <NavLink>Home</NavLink>
-    <NavLink>Home</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)}>Home</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)}>Home</NavLink>
     </>
 
     return (
@@ -64,15 +76,29 @@ const Navbar = () => {
             <div className='flex justify-between px-4 py-2 items-center'>
                 <Link className='flex items-center gap-2.5'>
                     <img className='max-sm:h-9 h-12 rounded-full' src={logo} alt="" />
-                    <h1 className='text-3xl max-sm:text-xl'>ChefBazaar</h1>
+                    <h1 className='text-3xl max-sm:text-xl font-bold'>ChefBazaar</h1>
                 </Link>
                 <div className='hidden lg:flex gap-2.5'>
                     {
                         links
                     }
                 </div>
-                <div className='hidden lg:flex'>
-                    <button>Log out</button>
+                <button onClick={toggleTheme} className='lg:text-3xl max-lg:text-xl mr-2.5 absolute right-12 lg:right-62 cursor-pointer'>
+                    {
+                        theme === "dark" ? <IoSunny ></IoSunny> : <IoMoonSharp></IoMoonSharp>
+                    }
+                </button>
+                <div className='hidden lg:flex gap-2'>
+                    <button class="btn-17">
+                        <span class="text-container">
+                            <span class="text">log in</span>
+                        </span>
+                    </button>
+                    <button class="btn-17">
+                        <span class="text-container">
+                            <span class="text">sing up</span>
+                        </span>
+                    </button>
                 </div>
                 <button className='lg:hidden' onClick={() => setOpen(!open)}>
                     {
@@ -82,15 +108,24 @@ const Navbar = () => {
             </div>
             {
                 open && (
-                    <div ref={dropDown} className='w-full flex flex-col gap-3'>
-                        <div>
-                            <button>Log in</button>
-                            <button>sign in</button>
+                    <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
+                        {links}
+                        <div className='flex items-center gap-2.5'>
+                            <button class="btn-17">
+                                <span class="text-container">
+                                    <span class="text">login</span>
+                                </span>
+                            </button>
+                            <button class="btn-17">
+                                <span class="text-container">
+                                    <span class="text">sing up</span>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 )
             }
-        </div>
+        </div >
     );
 };
 
