@@ -6,9 +6,7 @@ const RootLayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div className='pt-16 max-sm:pt-13.25'>
-                <Outlet></Outlet>
-            </div>
+            <Outlet></Outlet>
         </div>
     );
 };

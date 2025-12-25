@@ -89,14 +89,14 @@ const Navbar = () => {
                     }
                 </button>
                 <div className='hidden lg:flex gap-2'>
-                    <button class="btn-17">
-                        <span class="text-container">
-                            <span class="text">log in</span>
+                    <button className="btn-17">
+                        <span className="text-container">
+                            <span className="text">log in</span>
                         </span>
                     </button>
-                    <button class="btn-17">
-                        <span class="text-container">
-                            <span class="text">sing up</span>
+                    <button className="btn-17">
+                        <span className="text-container">
+                            <span className="text">sing up</span>
                         </span>
                     </button>
                 </div>
@@ -111,14 +111,14 @@ const Navbar = () => {
                     <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
                         {links}
                         <div className='flex items-center gap-2.5'>
-                            <button class="btn-17">
-                                <span class="text-container">
-                                    <span class="text">login</span>
+                            <button className="btn-17">
+                                <span className="text-container">
+                                    <span className="text">login</span>
                                 </span>
                             </button>
-                            <button class="btn-17">
-                                <span class="text-container">
-                                    <span class="text">sing up</span>
+                            <button className="btn-17">
+                                <span className="text-container">
+                                    <span className="text">sing up</span>
                                 </span>
                             </button>
                         </div>

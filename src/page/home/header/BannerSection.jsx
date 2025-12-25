@@ -5,7 +5,7 @@ import { FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
 const BannerSection = () => {
     return (
         <div>
-            <section className="bg-base-200 py-20 max-sm:py-10 flex items-center">
+            <section className="bg-base-200 py-20 max-sm:py-14 flex items-center">
                 <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Content */}
                     {/* {motion} */}
