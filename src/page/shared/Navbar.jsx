@@ -5,7 +5,7 @@ import { Link, NavLink } from 'react-router';
 import logo from '../../assets/chef-logo-restaurant-food-vector-600w-1739601476.webp'
 import '../ButtonStyle/loginbutton.css'
 
-const Navbar = () => {
+const Navbar = ({openLogin, openRegister }) => {
     const [hideNav, setHideNav] = useState(false);
     const lastScroll = useRef(0);
     const [open, setOpen] = useState(false);
@@ -67,8 +67,21 @@ const Navbar = () => {
     }, [theme])
 
     const links = <>
-        <NavLink to={'/'} onClick={() => setOpen(false)}>Home</NavLink>
-        <NavLink to={'/'} onClick={() => setOpen(false)}>Home</NavLink>
+        <NavLink to={'/g'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
+    </>
+
+    const loginAndRegister = <>
+        <Link onClick={openLogin} className="btn-17">
+            <span className="text-container">
+                <span className="text">log in</span>
+            </span>
+        </Link>
+        <Link onClick={openRegister } className="btn-17">
+            <span className="text-container">
+                <span className="text">sing up</span>
+            </span>
+        </Link>
     </>
 
     return (
@@ -89,16 +102,7 @@ const Navbar = () => {
                     }
                 </button>
                 <div className='hidden lg:flex gap-2'>
-                    <button className="btn-17">
-                        <span className="text-container">
-                            <span className="text">log in</span>
-                        </span>
-                    </button>
-                    <button className="btn-17">
-                        <span className="text-container">
-                            <span className="text">sing up</span>
-                        </span>
-                    </button>
+                    {loginAndRegister}
                 </div>
                 <button className='lg:hidden' onClick={() => setOpen(!open)}>
                     {
@@ -111,16 +115,7 @@ const Navbar = () => {
                     <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
                         {links}
                         <div className='flex items-center gap-2.5'>
-                            <button className="btn-17">
-                                <span className="text-container">
-                                    <span className="text">login</span>
-                                </span>
-                            </button>
-                            <button className="btn-17">
-                                <span className="text-container">
-                                    <span className="text">sing up</span>
-                                </span>
-                            </button>
+                            {loginAndRegister}
                         </div>
                     </div>
                 )
