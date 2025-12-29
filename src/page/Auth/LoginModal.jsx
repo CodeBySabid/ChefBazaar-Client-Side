@@ -26,7 +26,8 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                 <hr className='border-[#838080] my-4 w-[90%] mx-auto' />
                 <h1 className='text-center text-4xl font-bold mb-2.5'>Login</h1>
 
-                {/* Email field */}
+                <form  onSubmit={handleSubmit(handleLogin)}>
+                    {/* Email field */}
                 <label className='label'>Email</label>
                 <input 
                 {...register("email", {required: true})}
@@ -47,17 +48,18 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                     {
                         errors.password?.type === "required" && <p className='text-red-500 text-sm mt-1'>Password is required</p>
                     }
-                    <button onClick={() => setShowPassword(!showPassword)} className='absolute right-4 top-9.5'>
+                    <span onClick={() => setShowPassword(!showPassword)} className='absolute right-4 top-9.5'>
                         {
                             showPassword ? <FaEyeSlash size={20}></FaEyeSlash> : <FaEye size={20}></FaEye>
                         }
-                    </button>
+                    </span>
                 </div>
 
                 <Link className='text-sm relative top-1'>Forgot Password?</Link>
 
-                <button onClick={handleSubmit(handleLogin)} className="btn btn-neutral w-full mt-4">Login</button>
+                <button className="btn btn-neutral w-full mt-4">Login</button>
 
+                </form>
                 <p className="text-sm mt-3 text-center">
                     Don’t have an account?{" "}
                     <span

@@ -3,6 +3,7 @@ import Navbar from '../page/shared/Navbar';
 import { Outlet } from 'react-router';
 import LoginModal from '../page/Auth/LoginModal';
 import RegisterModal from '../page/Auth/RegisterModal';
+import Footer from '../page/shared/Footer';
 
 const RootLayout = () => {
     const [authModal, setAuthModal] = useState(null);
@@ -26,7 +27,10 @@ const RootLayout = () => {
                 onClose={() => setAuthModal(null)}
                 goLogin={() => setAuthModal("login")}
             />
-            <Outlet></Outlet>
+            <div className='pt-16'>
+                <Outlet></Outlet>
+            </div>
+            <Footer></Footer>
         </div>
     );
 };
