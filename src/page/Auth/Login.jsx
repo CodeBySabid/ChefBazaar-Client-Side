@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router';
-import bgimage from '../../assets/images.jpg'
+import bgimage from '../../assets/images.avif'
+import UseAuth from '../../hook/UseAuth';
 
 const Login = () => {
+    const { loginUser} = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const handleLogin = (data) => {
         console.log(data);
+        loginUser(data.email, data.password)
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
     return (
-        <div className="w-full min-h-[70vh] relative flex justify-center items-center">
+        <div style={{ backgroundImage: `url(${bgimage})` }} className="w-full min-h-[70vh] relative flex justify-center items-center">
             <img className='w-full h-screen absolute -z-10' src={bgimage} alt="" />
             <div className="bg-[#373b41c9] text-white max-w-100 p-2.5 sm:p-6 rounded-3xl ">
                 <h3 className="font-bold text-3xl text-center">Welcome Back</h3>
@@ -20,7 +29,7 @@ const Login = () => {
                 <hr className='border-[#838080] my-4 w-[90%] mx-auto' />
                 <h1 className='text-center text-4xl font-bold mb-2.5'>Login</h1>
 
-                <form  onSubmit={handleSubmit(handleLogin)}>
+                <form onSubmit={handleSubmit(handleLogin)}>
                     {/* Email field */}
                     <label className='label text-white'>Email</label>
                     <input
@@ -53,6 +62,9 @@ const Login = () => {
 
                     <button className="btn btn-neutral w-full mt-4">Login</button>
                 </form>
+                <p>
+                    Don’t have an account? <Link to={'/register'} className='text-red-400 hover:font-semibold hover:text-blue-400'>Sign Up</Link>
+                </p>
             </div>
         </div>
     );

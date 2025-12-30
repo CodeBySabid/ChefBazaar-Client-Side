@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import bgimage from '../../assets/images.jpg'
+import bgimage from '../../assets/images.avif'
+import { Link } from 'react-router';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,9 +15,8 @@ const Register = () => {
         console.log(data);
     }
     return (
-        <div className='w-full min-h-[85vh] flex justify-center items-center px-1.5'>
-            <img className='w-full h-screen absolute -z-10' src={bgimage} alt="" />
-            <div className='max-w-100 p-5 bg-[#6062699d] rounded-3xl mt-2'>
+        <div style={{ backgroundImage: `url(${bgimage})` }} className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
+            <div className='max-w-100 p-4 mt-10 bg-[#6062699d] rounded-3xl'>
                 <h3 className="font-bold text-3xl text-center">Welcome Back</h3>
                 <h3 className="font-bold text-sm text-center">Login with ChefBazaar</h3>
                 <hr className='border-[#838080] my-4 w-[90%] mx-auto' />
@@ -118,6 +118,9 @@ const Register = () => {
 
                     <button className="btn btn-neutral w-full mt-4">Login</button>
                 </form>
+                <p>
+                    Already have an account? <Link className='text-red-600 hover:text-blue-600 hover:font-semibold' to={'/login'}>Login</Link>
+                </p>
             </div>
         </div>
     );

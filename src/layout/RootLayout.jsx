@@ -27,7 +27,7 @@ const RootLayout = () => {
                 onClose={() => setAuthModal(null)}
                 goLogin={() => setAuthModal("login")}
             />
-            <div className='pt-16'>
+            <div>
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

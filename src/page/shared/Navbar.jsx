@@ -4,8 +4,10 @@ import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router';
 import logo from '../../assets/chef-logo-restaurant-food-vector-600w-1739601476.webp'
 import '../ButtonStyle/loginbutton.css'
+import UseAuth from '../../hook/UseAuth';
 
-const Navbar = ({openLogin, openRegister }) => {
+const Navbar = ({ openLogin, openRegister }) => {
+    const { user, logOut } = UseAuth();
     const [hideNav, setHideNav] = useState(false);
     const lastScroll = useRef(0);
     const [open, setOpen] = useState(false);
@@ -77,11 +79,19 @@ const Navbar = ({openLogin, openRegister }) => {
                 <span className="text">log in</span>
             </span>
         </Link>
-        <Link onClick={openRegister } className="btn-17">
+        <Link onClick={openRegister} className="btn-17">
             <span className="text-container">
                 <span className="text">sing up</span>
             </span>
         </Link>
+    </>
+
+    const logout = <>
+        <button onClick={() => logOut()} className="btn-17">
+            <span className="text-container">
+                <span className="text">Log out</span>
+            </span>
+        </button>
     </>
 
     return (
@@ -96,14 +106,14 @@ const Navbar = ({openLogin, openRegister }) => {
                         links
                     }
                 </div>
-                <button onClick={toggleTheme} className='lg:text-3xl max-lg:text-xl mr-2.5 absolute right-12 lg:right-62 cursor-pointer'>
+                <button onClick={toggleTheme} className={`lg:text-3xl max-lg:text-xl mr-2.5 absolute ${user ? 'right-12 lg:right-36' : 'right-12 lg:right-62'} cursor-pointer`}>
                     {
                         theme === "dark" ? <IoSunny ></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
                 </button>
-                <div className='hidden lg:flex gap-2'>
-                    {loginAndRegister}
-                </div>
+                {
+                    user ? <div className='hidden lg:flex'>{logout}</div> : <div className='hidden lg:flex gap-2'>{loginAndRegister}</div>
+                }
                 <button className='lg:hidden' onClick={() => setOpen(!open)}>
                     {
                         open ? <HiXMark size={31}></HiXMark> : <IoMenuOutline size={31}></IoMenuOutline >
@@ -114,9 +124,10 @@ const Navbar = ({openLogin, openRegister }) => {
                 open && (
                     <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
                         {links}
-                        <div className='flex items-center gap-2.5'>
-                            {loginAndRegister}
-                        </div>
+                        {
+                            user ? <div className='flex items-center'>{logout}</div> : 
+                        <div className='flex items-center gap-2.5'>{loginAndRegister}</div>
+                        }
                     </div>
                 )
             }

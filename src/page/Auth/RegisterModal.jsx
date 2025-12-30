@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import UseAuth from '../../hook/UseAuth';
 const RegisterModal = ({ open, onClose, goLogin }) => {
+    const {registerUser} = UseAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmPassword] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
@@ -10,6 +12,14 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
 
     const handleRegistration = (data) => {
         console.log(data);
+        registerUser(data.email, data.password)
+        .then(result => {
+            console.log(result)
+            onClose();
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
 
