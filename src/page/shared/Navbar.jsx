@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router';
 import logo from '../../assets/chef-logo-restaurant-food-vector-600w-1739601476.webp'
 import '../ButtonStyle/loginbutton.css'
 import UseAuth from '../../hook/UseAuth';
+import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = ({ openLogin, openRegister }) => {
     const { user, logOut } = UseAuth();
@@ -13,6 +14,7 @@ const Navbar = ({ openLogin, openRegister }) => {
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [theme, setTheme] = useState("dark");
+    console.log(user)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -73,17 +75,23 @@ const Navbar = ({ openLogin, openRegister }) => {
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
     </>
 
+    const userProfile = <>
+        <Link>
+            <img className="rounded-full w-10 h-10 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="" />
+        </Link>
+    </>
+
     const loginAndRegister = <>
-        <Link onClick={openLogin} className="btn-17">
+        <button onClick={() => openLogin()} className="btn-17">
             <span className="text-container">
                 <span className="text">log in</span>
             </span>
-        </Link>
-        <Link onClick={openRegister} className="btn-17">
+        </button>
+        <button onClick={() => openRegister()} className="btn-17">
             <span className="text-container">
                 <span className="text">sing up</span>
             </span>
-        </Link>
+        </button>
     </>
 
     const logout = <>
@@ -106,13 +114,16 @@ const Navbar = ({ openLogin, openRegister }) => {
                         links
                     }
                 </div>
-                <button onClick={toggleTheme} className={`lg:text-3xl max-lg:text-xl mr-2.5 absolute ${user ? 'right-12 lg:right-36' : 'right-12 lg:right-62'} cursor-pointer`}>
+                <button onClick={toggleTheme} className={`lg:text-3xl max-lg:text-xl mr-2.5 absolute ${user ? 'right-12 lg:right-48' : 'right-12 lg:right-62'} cursor-pointer`}>
                     {
                         theme === "dark" ? <IoSunny ></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
                 </button>
                 {
-                    user ? <div className='hidden lg:flex'>{logout}</div> : <div className='hidden lg:flex gap-2'>{loginAndRegister}</div>
+                    user ? <div className='lg:flex gap-3 hidden'>
+                        {userProfile}
+                        <div className='hidden lg:flex'>{logout}</div>
+                    </div> : <div className='hidden lg:flex gap-2'>{loginAndRegister}</div>
                 }
                 <button className='lg:hidden' onClick={() => setOpen(!open)}>
                     {
@@ -125,8 +136,8 @@ const Navbar = ({ openLogin, openRegister }) => {
                     <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
                         {links}
                         {
-                            user ? <div className='flex items-center'>{logout}</div> : 
-                        <div className='flex items-center gap-2.5'>{loginAndRegister}</div>
+                            user ? <div className='flex gap-3 items-center'> <div>{userProfile}</div> <div>{logout}</div></div> :
+                                <div className='flex items-center gap-2.5'>{loginAndRegister}</div>
                         }
                     </div>
                 )

@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import UseAuth from '../../hook/UseAuth';
 const LoginModal = ({ open, onClose, goRegister }) => {
     const [showPassword, setShowPassword] = useState(false);
-    const { loginUser } = UseAuth()
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { loginUser } = UseAuth();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const location = useLocation()
 
     const handleLogin = (data) => {
-        console.log(data);
         loginUser(data.email, data.password)
-            .then(result => {
-                console.log(result);
+            .then(() => {
+                navigate(location.state || '/')
                 onClose();
             })
             .catch(error => {

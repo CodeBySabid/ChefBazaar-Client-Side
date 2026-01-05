@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import bgimage from '../../assets/images.avif'
 import UseAuth from '../../hook/UseAuth';
 
@@ -9,12 +9,13 @@ const Login = () => {
     const { loginUser} = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const naviget = useNavigate();
+    const location = useLocation()
 
     const handleLogin = (data) => {
-        console.log(data);
         loginUser(data.email, data.password)
-        .then(result => {
-            console.log(result)
+        .then(() => {
+            naviget(location.state || '/')
         })
         .catch(error => {
             console.log(error)

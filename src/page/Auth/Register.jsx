@@ -2,17 +2,27 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bgimage from '../../assets/images.avif'
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import UseAuth from '../../hook/UseAuth';
 
 const Register = () => {
+    const {registerUser} = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmPassword] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation()
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
 
     const password = watch("password")
 
     const handleRegistration = (data) => {
-        console.log(data);
+        registerUser(data.email, data.password)
+        .then(() => {
+            navigate(location.state || '/');
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
     return (
         <div style={{ backgroundImage: `url(${bgimage})` }} className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
