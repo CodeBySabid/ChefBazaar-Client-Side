@@ -1,4 +1,3 @@
-
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ReviewsCard from './ReviewsCard';
