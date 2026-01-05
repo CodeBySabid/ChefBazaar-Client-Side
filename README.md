@@ -6,4 +6,5 @@
 (6) npm install react-hook-form
 (7) npm install firebase
 (10) npm install axios
-(11) 
+(11) npm install react-responsive-carousel --save
+(12) npm install swiper
