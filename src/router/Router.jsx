@@ -4,6 +4,7 @@ import Home from "../page/home/Home/Home";
 import Register from "../page/Auth/Register";
 import Login from "../page/Auth/Login";
 import MealDetails from "../page/MealDetails/MealDetails";
+import OrderPage from "../page/OrderPage/OrderPage";
 
 export const router = createBrowserRouter([
     {
@@ -12,20 +13,24 @@ export const router = createBrowserRouter([
        children: [
         {
             index: true,
-            Component: Home
+            Component: Home,
         },
         {
             path: 'fooddetails',
             Component: MealDetails,
         },
         {
+            path: 'orderpage',
+            Component: OrderPage,
+        },
+        {
             path: 'login',
-            Component: Login
+            Component: Login,
         },
         {
             path: 'register',
             Component: Register,
-        }
+        },
        ]
     }
 ])
