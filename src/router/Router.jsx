@@ -3,6 +3,7 @@ import RootLayout from "../layout/RootLayout";
 import Home from "../page/home/Home/Home";
 import Register from "../page/Auth/Register";
 import Login from "../page/Auth/Login";
+import MealDetails from "../page/MealDetails/MealDetails";
 
 export const router = createBrowserRouter([
     {
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
         {
             index: true,
             Component: Home
+        },
+        {
+            path: 'fooddetails',
+            Component: MealDetails,
         },
         {
             path: 'login',

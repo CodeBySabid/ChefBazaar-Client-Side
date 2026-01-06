@@ -14,7 +14,6 @@ const Navbar = ({ openLogin, openRegister }) => {
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [theme, setTheme] = useState("dark");
-    console.log(user)
 
     useEffect(() => {
         const handleScroll = () => {
