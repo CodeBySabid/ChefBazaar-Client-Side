@@ -7,6 +7,12 @@ import MealDetails from "../page/MealDetails/MealDetails";
 import OrderPage from "../page/OrderPage/OrderPage";
 import PrivateRoute from "./PrivateRoute";
 import AdminLayout from "../layout/AdminLayout";
+import ChefLayout from "../layout/ChefLayout";
+import UserLayout from "../layout/UserLayout";
+import AdminProfile from "../page/Dashboard/AdminDashboard/AdminProfile/AdminProfile";
+import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUser";
+import MangerRequest from "../page/Dashboard/AdminDashboard/MangerRequest/MangerRequest";
+import PlatformStatistics from "../page/Dashboard/AdminDashboard/PlatformStatistics/PlatformStatistics";
 
 export const router = createBrowserRouter([
     {
@@ -18,8 +24,39 @@ export const router = createBrowserRouter([
                 Component: Home,
             },
             {
-                path: 'admin',
+                path: 'admin_dashboard',
                 element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
+                children: [
+                    {
+                        path: '/admin_dashboard/admin_profile' ,
+                        Component: AdminProfile,
+                    },
+                    {
+                        path: '/admin_dashboard/manager_page',
+                        Component: ManagerUser,
+                    },
+                    {
+                        path: '/admin_dashboard/manager_request',
+                        Component: MangerRequest,
+                    },
+                    {
+                        path: '/admin_dashboard/admin_statistics',
+                        Component: PlatformStatistics,
+                    }
+                ]
+            },
+            {
+                path: 'chef_dashboard',
+                element: <PrivateRoute><ChefLayout></ChefLayout></PrivateRoute>,
+                children: [
+                    {
+                        
+                    },
+                ]
+            },
+            {
+                path: 'user_dashboard',
+                element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
                 children: [
                     {
                         

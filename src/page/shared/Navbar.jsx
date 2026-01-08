@@ -72,7 +72,9 @@ const Navbar = ({ openLogin, openRegister }) => {
     const links = <>
         <NavLink to={'/g'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
         {/* <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink> */}
-        <NavLink to={'/admin'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Dashboard</NavLink>
+        <NavLink to={'/admin_dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>admin Dashboard</NavLink>
+        <NavLink to={'/chef_dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>chef Dashboard</NavLink>
+        <NavLink to={'/user_dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>user Dashboard</NavLink>
     </>
 
     const userProfile = <>

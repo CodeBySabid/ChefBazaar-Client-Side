@@ -42,14 +42,6 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
             })
     }
 
-    // useEffect(() => {
-    //     if (user) {
-    //         navigate(location.state || '/')
-    //         onClose();
-    //     }
-    // }, [user, navigate, location])
-
-
     if (!open) return null;
     return (
         <dialog className="modal modal-open">
