@@ -27,6 +27,8 @@ const PlatformStatistics = () => {
         <PaymentChart />
         <OrderPieChart />
       </div>
+
+      <UserGrowthChart />
     </div>
   );
 };
