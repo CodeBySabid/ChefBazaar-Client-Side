@@ -1,3 +1,9 @@
+import { FaUsers, FaDollarSign, FaTruck, FaClock } from "react-icons/fa";
+import PaymentChart from "./PaymentChart";
+import OrderPieChart from "./OrderPieChart";
+import UserGrowthChart from "./UserGrowthChart";
+
+
 import React from 'react';
 import StatCard from "./StatCard";
 
@@ -15,6 +21,11 @@ const PlatformStatistics = () => {
 
       {/* Stat Cards */}
       <StatCard></StatCard>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <PaymentChart />
+      </div>
 
     </div>
   );
