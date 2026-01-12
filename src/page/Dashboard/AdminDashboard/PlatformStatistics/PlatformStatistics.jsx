@@ -25,8 +25,8 @@ const PlatformStatistics = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <PaymentChart />
+        <OrderPieChart />
       </div>
-
     </div>
   );
 };
