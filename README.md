@@ -8,3 +8,6 @@
 (10) npm install axios
 (11) npm install react-responsive-carousel --save
 (12) npm install swiper
+(13) npm install recharts
+(14) npm install clsx
+(15) npm install tailwind-merge

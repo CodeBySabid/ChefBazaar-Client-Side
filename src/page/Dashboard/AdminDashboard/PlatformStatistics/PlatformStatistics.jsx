@@ -1,11 +1,23 @@
 import React from 'react';
+import StatCard from "./StatCard";
 
 const PlatformStatistics = () => {
-    return (
-        <div>
-            PlatformStatistics
-        </div>
-    );
+  return (
+    <div className="p-6 space-y-6 bg-base-200 min-h-screen">
+
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold">Platform Statistics Overview</h1>
+        <p className="text-gray-500">
+          Key metrics and performance trends for platform administrators
+        </p>
+      </div>
+
+      {/* Stat Cards */}
+      <StatCard></StatCard>
+
+    </div>
+  );
 };
 
 export default PlatformStatistics;

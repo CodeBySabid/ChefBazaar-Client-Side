@@ -13,6 +13,7 @@ import AdminProfile from "../page/Dashboard/AdminDashboard/AdminProfile/AdminPro
 import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUser";
 import MangerRequest from "../page/Dashboard/AdminDashboard/MangerRequest/MangerRequest";
 import PlatformStatistics from "../page/Dashboard/AdminDashboard/PlatformStatistics/PlatformStatistics";
+import OrderRequests from "../page/Dashboard/ChefDashboard/OrderRequests";
 
 export const router = createBrowserRouter([
     {
@@ -23,12 +24,17 @@ export const router = createBrowserRouter([
                 index: true,
                 Component: Home,
             },
+            
+    {
+        path: '/cdashboards',
+        Component: OrderRequests,
+    },
             {
                 path: 'admin_dashboard',
                 element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
                 children: [
                     {
-                        path: '/admin_dashboard/admin_profile' ,
+                        path: '/admin_dashboard/admin_profile',
                         Component: AdminProfile,
                     },
                     {
@@ -50,7 +56,7 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
                 children: [
                     {
-                        path: '/user_dashboard/user_profile' ,
+                        path: '/user_dashboard/user_profile',
                         Component: AdminProfile,
                     },
                     {
@@ -71,9 +77,6 @@ export const router = createBrowserRouter([
                 path: 'chef_dashboard',
                 element: <PrivateRoute><ChefLayout></ChefLayout></PrivateRoute>,
                 children: [
-                    {
-                        
-                    },
                 ]
             },
             {
@@ -81,7 +84,7 @@ export const router = createBrowserRouter([
                 Component: MealDetails,
             },
             {
-                path: 'orderpage',
+                path: '/orderpage',
                 Component: OrderPage,
             },
             {
@@ -93,5 +96,6 @@ export const router = createBrowserRouter([
                 Component: Register,
             },
         ]
-    }
+    },
+
 ])
