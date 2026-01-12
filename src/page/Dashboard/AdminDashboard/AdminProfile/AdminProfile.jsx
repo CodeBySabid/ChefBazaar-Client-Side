@@ -30,6 +30,10 @@ const AdminProfile = () => {
                         <h1 className='font-semibold'>Address</h1>
                         <h1>{user.email}</h1>
                     </div>
+                    <div className='full text-gray-800 flex justify-between'>
+                        <h1 className='font-semibold'>Role</h1>
+                        <h1>{user.email}</h1>
+                    </div>
 
                     <div className='full text-gray-800 flex justify-between'>
                         <h1 className='font-semibold'>Status </h1>

@@ -46,17 +46,30 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path: 'chef_dashboard',
-                element: <PrivateRoute><ChefLayout></ChefLayout></PrivateRoute>,
+                path: 'user_dashboard',
+                element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
                 children: [
                     {
-                        
+                        path: '/user_dashboard/user_profile' ,
+                        Component: AdminProfile,
                     },
+                    {
+                        path: '/user_dashboard/orders_page',
+                        Component: ManagerUser,
+                    },
+                    {
+                        path: '/user_dashboard/review',
+                        Component: MangerRequest,
+                    },
+                    {
+                        path: '/user_dashboard/favorite',
+                        Component: PlatformStatistics,
+                    }
                 ]
             },
             {
-                path: 'user_dashboard',
-                element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
+                path: 'chef_dashboard',
+                element: <PrivateRoute><ChefLayout></ChefLayout></PrivateRoute>,
                 children: [
                     {
                         
