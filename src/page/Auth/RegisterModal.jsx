@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UseAuth from '../../hook/UseAuth';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 const RegisterModal = ({ open, onClose, goLogin }) => {
     const { registerUser, updateUserProfile } = UseAuth();
     const [showPassword, setShowPassword] = useState(false);
@@ -12,30 +13,41 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
     const password = watch("password")
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
 
     const handleRegistration = (data) => {
         console.log(data)
         const profileImg = data.profileimage[0];
         registerUser(data.email, data.password)
-            .then(res => {
-                console.log(res)
+            .then(() => {
                 const formData = new FormData();
                 formData.append('image', profileImg)
                 const image_Api_Url_Key = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
-
                 axios.post(image_Api_Url_Key, formData)
                     .then(res => {
-                        console.log('after image upload', res.data.data.url)
+                        const photoURL = res.data.data.url
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            photoURL: photoURL,
+                            address: data.address,
+                        }
+                        axiosSecure.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('after uploade user data')
+                                    navigate(location.state || '/')
+                                    onClose();
+                                }
+                            })
                         const userProfile = {
                             displayName: data.name,
-                            photoURL: res.data.data.url
+                            photoURL: photoURL
                         }
                         updateUserProfile(userProfile)
                             .then()
                             .catch(error => console.log(error));
                     })
-                navigate(location.state || '/')
-                onClose();
             })
             .catch(error => {
                 console.log(error)

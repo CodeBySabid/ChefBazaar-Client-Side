@@ -4,25 +4,57 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bgimage from '../../assets/images.avif'
 import { Link, useLocation, useNavigate } from 'react-router';
 import UseAuth from '../../hook/UseAuth';
+import useAxiosSecure from '../../hook/useAxiosSecure';
+import axios from 'axios';
 
 const Register = () => {
-    const {registerUser} = UseAuth()
+    const { registerUser, updateUserProfile } = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation()
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
+    const axiosSecure = useAxiosSecure()
 
     const password = watch("password")
 
     const handleRegistration = (data) => {
+        const profileImg = data.profileimage[0];
         registerUser(data.email, data.password)
-        .then(() => {
-            navigate(location.state || '/');
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(() => {
+                const formData = new FormData();
+                formData.append('image', profileImg);
+                const image_Api_Url_Key = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
+                axios.post(image_Api_Url_Key, formData)
+                    .then(res => {
+                        const photoURL = res.data.data.url;
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            photoURL: photoURL,
+                            address: data.address,
+                        }
+                        axiosSecure.post('/users', userInfo)
+                        .then(res => {
+                            if(res.data.insertedId){
+                                console.log('after the uploade image')
+                            }
+                        })
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: photoURL,
+                        }
+                        updateUserProfile(userProfile)
+                        .then()
+                        .catch(error => {
+                            console.log(error);
+                        })
+                    })
+                navigate(location.state || '/');
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div style={{ backgroundImage: `url(${bgimage})` }} className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
