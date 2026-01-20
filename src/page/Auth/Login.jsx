@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import bgimage from '../../assets/images.avif'
 import UseAuth from '../../hook/UseAuth';
 
@@ -21,9 +21,11 @@ const Login = () => {
                 console.log(error)
             })
     }
-    if (user) {
-        naviget(location.state || '/')
-    }
+    useEffect(() => {
+        if (user) {
+            naviget(location.state || '/');
+        }
+    }, [user, naviget, location.state]);
     return (
         <div style={{ backgroundImage: `url(${bgimage})` }} className="w-full min-h-[70vh] relative flex justify-center items-center">
             <img className='w-full h-screen absolute -z-10' src={bgimage} alt="" />

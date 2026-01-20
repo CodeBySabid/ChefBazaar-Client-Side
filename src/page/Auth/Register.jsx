@@ -34,6 +34,8 @@ const Register = () => {
                             email: data.email,
                             photoURL: photoURL,
                             address: data.address,
+                            role: 'User',
+                            status: 'Inactive',
                             createdAt: Date()
                         }
                         axiosSecure.post('/users', userInfo)
@@ -73,7 +75,7 @@ const Register = () => {
             await axios.post('http://localhost:3000/users', userInfo);
             navigate(location.state || '/');
         }
-        catch(error) {
+        catch (error) {
             toast.error(error.message);
         };
     };

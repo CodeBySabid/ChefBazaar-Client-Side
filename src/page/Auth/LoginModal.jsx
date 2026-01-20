@@ -6,7 +6,7 @@ import UseAuth from '../../hook/UseAuth';
 const LoginModal = ({ open, onClose, goRegister }) => {
     const [showPassword, setShowPassword] = useState(false);
     const { loginUser } = UseAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const navigate = useNavigate();
     const location = useLocation()
 
@@ -14,6 +14,7 @@ const LoginModal = ({ open, onClose, goRegister }) => {
         loginUser(data.email, data.password)
             .then(() => {
                 navigate(location.state || '/')
+                reset();
                 onClose();
             })
             .catch(error => {
@@ -21,12 +22,17 @@ const LoginModal = ({ open, onClose, goRegister }) => {
             })
     }
 
+    const handleClose = () => {
+        reset();
+        onClose();
+    }
+
     if (!open) return null;
     return (
         <dialog className="modal modal-open">
             <div className="modal-box max-w-100">
                 <button
-                    onClick={onClose}
+                    onClick={handleClose}
                     className="btn btn-sm btn-circle absolute right-2 top-2"
                 >
                     ✕
