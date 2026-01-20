@@ -6,20 +6,23 @@ import bgimage from '../../assets/images.avif'
 import UseAuth from '../../hook/UseAuth';
 
 const Login = () => {
-    const { loginUser} = UseAuth()
+    const { loginUser, user } = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const naviget = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
 
     const handleLogin = (data) => {
         loginUser(data.email, data.password)
-        .then(() => {
-            naviget(location.state || '/')
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(() => {
+                naviget(location.state || '/')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    if (user) {
+        naviget(location.state || '/')
     }
     return (
         <div style={{ backgroundImage: `url(${bgimage})` }} className="w-full min-h-[70vh] relative flex justify-center items-center">
