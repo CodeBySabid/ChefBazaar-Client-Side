@@ -37,7 +37,7 @@ const Profile = () => {
                 </div>
 
                 <h1 className="text-2xl border-b border-dashed pb-2 border-b-gray-700 font-semibold text-gray-800">
-                    {users.displayName}
+                    {users.name}
                 </h1>
 
                 <div className='full text-gray-800 flex justify-between'>
@@ -53,10 +53,18 @@ const Profile = () => {
                     <h1 className='font-semibold'>Role</h1>
                     <h1>{users.role}</h1>
                 </div>
+                {
+                    users.role === 'Chef' && <>
+                        <div className='full text-gray-800 flex justify-between'>
+                            <h1 className='font-semibold'>Chef Id</h1>
+                            <h1>{users.chefId}</h1>
+                        </div>
+                    </>
+                }
 
                 <div className='full text-gray-800 flex justify-between'>
                     <h1 className='font-semibold'>Status </h1>
-                    <h1>{users.email}</h1>
+                    <h1>{users.status}</h1>
                 </div>
                 <div className='full text-gray-800 flex justify-between'>
                     <h1 className='font-semibold'>Create At</h1>

@@ -5,6 +5,9 @@ import { FcStatistics } from 'react-icons/fc';
 import { VscGitPullRequestNewChanges } from 'react-icons/vsc';
 import { Link, Outlet } from 'react-router';
 import useRole from '../hook/useRole';
+import { FaBowlFood, FaCartFlatbed } from 'react-icons/fa6';
+import { MdFoodBank, MdMenuBook, MdRateReview } from 'react-icons/md';
+import { GiFoodTruck } from 'react-icons/gi';
 
 const DashboardLayout = () => {
     const { role } = useRole();
@@ -32,15 +35,15 @@ const DashboardLayout = () => {
                         {/* Sidebar content here */}
                         <ul className="menu w-full grow">
                             {/* List item */}
+                            <li>
+                                <Link to={'/dashboard/profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
+                                    {/* Home icon */}
+                                    <CgProfile className="my-1 inline-block size-5"></CgProfile>
+                                    <span className="is-drawer-close:hidden">My Profile</span>
+                                </Link>
+                            </li>
                             {
                                 role === 'Admin' && <>
-                                    <li>
-                                        <Link to={'/dashboard/profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
-                                            {/* Home icon */}
-                                            <CgProfile className="my-1 inline-block size-5"></CgProfile>
-                                            <span className="is-drawer-close:hidden">My Profile</span>
-                                        </Link>
-                                    </li>
                                     <li>
                                         <Link to={'/dashboard/manager_page'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage User">
                                             {/* Home icon */}
@@ -66,32 +69,26 @@ const DashboardLayout = () => {
                             }
                             {
                                 role === 'User' && <>
+
                                     <li>
-                                        <Link to={'/dashboard/profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
+                                        <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Orders">
                                             {/* Home icon */}
-                                            <CgProfile className="my-1 inline-block size-5"></CgProfile>
-                                            <span className="is-drawer-close:hidden">My Profile</span>
+                                            <GiFoodTruck className="my-1 inline-block size-5"></GiFoodTruck>
+                                            <span className="is-drawer-close:hidden">My Orders</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/dashboard/manager_page'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage User">
+                                        <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My review">
                                             {/* Home icon */}
-                                            <FaUserCheck className="my-1 inline-block size-5"></FaUserCheck>
-                                            <span className="is-drawer-close:hidden">Manage User</span>
+                                            <MdRateReview className="my-1 inline-block size-5"></MdRateReview >
+                                            <span className="is-drawer-close:hidden">My review</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/admin_dashboard/manager_request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Mange request">
+                                        <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorite Meal">
                                             {/* Home icon */}
-                                            <VscGitPullRequestNewChanges className="my-1 inline-block size-5"></VscGitPullRequestNewChanges >
-                                            <span className="is-drawer-close:hidden">Mange request</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={'/admin_dashboard/admin_statistics'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Statistics">
-                                            {/* Home icon */}
-                                            <FcStatistics className="my-1 inline-block size-5"></FcStatistics  >
-                                            <span className="is-drawer-close:hidden">Platform Statistics</span>
+                                            <FaBowlFood className="my-1 inline-block size-5"></FaBowlFood  >
+                                            <span className="is-drawer-close:hidden">Favorite Meal</span>
                                         </Link>
                                     </li>
                                 </>
@@ -99,31 +96,24 @@ const DashboardLayout = () => {
                             {
                                 role === 'Chef' && <>
                                     <li>
-                                        <Link to={'/dashboard/profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
+                                        <Link to={'/admin_dashboard/manager_page'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Create meal">
                                             {/* Home icon */}
-                                            <CgProfile className="my-1 inline-block size-5"></CgProfile>
-                                            <span className="is-drawer-close:hidden">My Profile</span>
+                                            <MdFoodBank  className="my-1 inline-block size-5"></MdFoodBank >
+                                            <span className="is-drawer-close:hidden">Create meal</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/dashboard/manager_page'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage User">
+                                        <Link to={'/admin_dashboard/manager_request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Meals">
                                             {/* Home icon */}
-                                            <FaUserCheck className="my-1 inline-block size-5"></FaUserCheck>
-                                            <span className="is-drawer-close:hidden">Manage User</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={'/admin_dashboard/manager_request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Mange request">
-                                            {/* Home icon */}
-                                            <VscGitPullRequestNewChanges className="my-1 inline-block size-5"></VscGitPullRequestNewChanges >
-                                            <span className="is-drawer-close:hidden">Mange request</span>
+                                            <MdMenuBook  className="my-1 inline-block size-5"></MdMenuBook  >
+                                            <span className="is-drawer-close:hidden">My Meals</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={'/admin_dashboard/admin_statistics'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Statistics">
                                             {/* Home icon */}
-                                            <FcStatistics className="my-1 inline-block size-5"></FcStatistics  >
-                                            <span className="is-drawer-close:hidden">Platform Statistics</span>
+                                            <FaCartFlatbed  className="my-1 inline-block size-5"></FaCartFlatbed   >
+                                            <span className="is-drawer-close:hidden">Order requests</span>
                                         </Link>
                                     </li>
                                 </>

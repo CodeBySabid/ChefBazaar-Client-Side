@@ -1,16 +1,53 @@
 import React, { useState } from 'react';
 import image from '../../assets/images.avif'
 import '../ButtonStyle/loginbutton.css'
-import { FaComment, FaHeart, FaStar } from 'react-icons/fa';
+import { FaCommentDots, FaHeart, FaStar } from 'react-icons/fa';
+import useAxiosSecure from '../../hook/useAxiosSecure';
+import { useForm } from 'react-hook-form';
+import { ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
+import UseAuth from '../../hook/UseAuth';
 
 
 const MealDetails = () => {
-    const [rating, setRating] = useState(null);
-    const [rateColor, setColor] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(null);
+    const { register, handleSubmit, setValue, reset } = useForm();
+    const axiosSecure = useAxiosSecure();
+    const { user } = UseAuth()
+
+    const handleStarClick = (value) => {
+        setRating(value);
+        setValue("rating", value);
+    };
+
+    const handleReview = (data) => {
+        const userInfo = {
+            review: data.review,
+            rating: data.rating,
+            name: user.displayName,
+            photoUR: user.photoURL
+        }
+        axiosSecure.post('/review', userInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        title: "",
+                        icon: "success",
+                        showCancelButton: false,
+                        timer: 2000,
+                    });
+                    reset();
+                    setRating(0);
+                }
+            }
+            )
+    }
+
 
     return (
-        <div className='flex flex-col items-center w-screen pt-16 max-sm:pt-12 '>
-            <div className='rounded max-w-384 bg-base-300 w-full'>
+        <div className='flex flex-col bg-base-300 items-center w-screen pt-16 max-sm:pt-12 '>
+            <div className='rounded max-w-384 w-full'>
 
                 <div className='rounded flex flex-col md:flex-row gap-6 p-2.5 w-full'>
                     <div className='w-full rounded flex-1'>
@@ -77,48 +114,60 @@ const MealDetails = () => {
                         </button>
                     </div>
                 </div>
-                <section className='grid grid-cols-1 lg:grid-cols-3 mt-2.5 '>
-                    <div className='mt-2 relative w-full max-w-150 mx-auto'>
-                        <input
-                            type="text"
-                            className="input w-full bg-transparent outline-none mt-1 pr-12"
-                            placeholder="Comment" />
-                        <span className='absolute right-4 top-4'>
-                            <FaComment></FaComment>
-                        </span>
-                    </div>
-                    <div className='flex justify-center mt-2.5'>
-                        {[...Array(5)].map((star, index) => {
-                            const currentRate = index + 1
-                            return (
-                                <div key={index}>
-                                    <FaStar onClick={() => setRating(currentRate)} size={50} color={currentRate <= (rateColor || rating) ? 'red' : "gray"}></FaStar>
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <div className='w-full flex justify-center mt-4'>
-                        <button className="btn-17">
-                            <span className="text-container">
-                                <span className="text">Review</span>
-                            </span>
+                <form onSubmit={handleSubmit(handleReview)}>
+                    <div className="max-w-xl mx-auto bg-base-100 shadow-lg rounded-2xl p-6 mt-6">
+                        <h2 className="text-xl font-semibold text-center mb-4">
+                            Give Your Review
+                        </h2>
+
+                        <div className="relative mb-4">
+                            <textarea
+                                className="w-full outline-none p-4 textarea rounded-xl"
+                                placeholder="Write your comment..."
+                                {...register('review', { required: true })}
+                            />
+                            <FaCommentDots className="absolute top-4 right-4" />
+                        </div>
+
+                        <div className="flex justify-center gap-2 mb-6">
+                            {[...Array(5)].map((_, index) => {
+                                const value = index + 1;
+                                return (
+                                    <FaStar
+                                        key={index}
+                                        size={40}
+                                        className="cursor-pointer transition-transform hover:scale-110"
+                                        color={value <= (hover || rating) ? "#facc15" : "#d1d5db"}
+                                        onClick={() => handleStarClick(value)}
+                                        onMouseEnter={() => setHover(value)}
+                                        onMouseLeave={() => setHover(null)}
+                                    />
+                                );
+                            })}
+                        </div>
+
+                        <button
+                            className="w-full btn bg-yellow-400 text-black font-semibold py-3 rounded-xl transition"
+                        >
+                            Submit Review
                         </button>
                     </div>
-                </section>
+                </form>
                 <section className='flex max-sm:flex-col max-sm:items-center gap-1.5 mt-3 border-b border-gray-500 pb-2.5'>
                     <div className='flex-1 flex gap-1.5'>
-                        <img className='w-20 h-20 rounded-full' src={''} alt="" />
+                        <img className='w-20 h-20 rounded-full' src={'/'} alt="" />
                         <div>
-                            <h1>{}Reviewer</h1>
-                            <h2>{}Rating</h2>
-                            <p>{}Date</p>
+                            <h1>{ }Reviewer</h1>
+                            <h2>{ }Rating</h2>
+                            <p>{ }Date</p>
                         </div>
                     </div>
                     <div className='flex-3 md:flex-4 lg:flex-5'>
-                        <p>{}Comment Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum delectus facere voluptatibus dolorum animi enim eius voluptas velit quasi possimus illo tempore, numquam incidunt? A, eum. Cupiditate, enim sunt.</p>
+                        <p>{ }Comment Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum delectus facere voluptatibus dolorum animi enim eius voluptas velit quasi possimus illo tempore, numquam incidunt? A, eum. Cupiditate, enim sunt.</p>
                     </div>
                 </section>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
 import Profile from "../page/Dashboard/Profile";
 import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUser";
+import MealDetails from "../page/MealDetails/MealDetails";
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
+            },
+            {
+                path: 'meal-details',
+                element: <PrivateRoute><MealDetails></MealDetails></PrivateRoute>
             },
             {
                 path: 'login',
