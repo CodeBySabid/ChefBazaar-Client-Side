@@ -12,7 +12,7 @@ import { GiFoodTruck } from 'react-icons/gi';
 const DashboardLayout = () => {
     const { role } = useRole();
     return (
-        <div className='pt-12 sm:pt-16'>
+        <div className='pt-12 sm:pt-16 bg-base-200 min-h-screen'>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">

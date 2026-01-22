@@ -42,7 +42,8 @@ const MealDetails = () => {
             review: data.review,
             rating: data.rating,
             name: user.displayName,
-            photoUR: user.photoURL
+            photoUR: user.photoURL,
+            email: user.email,
         }
         axiosSecure.post('/review', userInfo)
             .then(res => {
@@ -62,7 +63,7 @@ const MealDetails = () => {
     }
 
     return (
-        <div className='flex flex-col bg-base-300 items-center w-screen pt-16 max-sm:pt-12'>
+        <div className='flex flex-col bg-base-200 items-center w-screen pt-16 max-sm:pt-12'>
             <div className='rounded max-w-384 w-full'>
                 <div className='rounded flex flex-col md:flex-row gap-6 p-2.5 w-full'>
                     <div className='w-full rounded flex-1'>
