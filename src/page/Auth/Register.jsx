@@ -35,7 +35,7 @@ const Register = () => {
                             photoURL: photoURL,
                             address: data.address,
                             role: 'User',
-                            status: 'Inactive',
+                            status: 'Active',
                             createdAt: Date()
                         }
                         axiosSecure.post('/users', userInfo)

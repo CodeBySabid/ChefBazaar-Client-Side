@@ -8,6 +8,8 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Profile from "../page/Dashboard/Profile";
 import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUser";
 import MealDetails from "../page/MealDetails/MealDetails";
+import ChefRequests from "../page/home/ChefRequests/ChefRequests";
+import MyReview from "../page/Dashboard/UserDashboard/MyReview";
 
 export const router = createBrowserRouter([
     {
@@ -41,71 +43,17 @@ export const router = createBrowserRouter([
                     {
                         path: 'manager_page',
                         Component: ManagerUser
-                    }
+                    },
+                    {
+                        path: 'be-a-chef',
+                        element: <ChefRequests></ChefRequests>,
+                    },
+                    {
+                        path: 'my-review',
+                        Component: MyReview,
+                    },
                 ]
             },
-            // {
-            //     path: '/dashboards',
-            //     Component: OrderRequests,
-            // },
-            // {
-            //     path: 'admin_dashboard',
-            //     element: <PrivateRoute><AdminLayout></AdminLayout></PrivateRoute>,
-            //     children: [
-            //         {
-            //             path: '/admin_dashboard/admin_profile',
-            //             Component: AdminProfile,
-            //         },
-            //         {
-            //             path: '/admin_dashboard/manager_page',
-            //             Component: ManagerUser,
-            //         },
-            //         {
-            //             path: '/admin_dashboard/manager_request',
-            //             Component: MangerRequest,
-            //         },
-            //         {
-            //             path: '/admin_dashboard/admin_statistics',
-            //             Component: PlatformStatistics,
-            //         }
-            //     ]
-            // },
-            // {
-            //     path: 'user_dashboard',
-            //     element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
-            //     children: [
-            //         {
-            //             path: '/user_dashboard/user_profile',
-            //             Component: AdminProfile,
-            //         },
-            //         {
-            //             path: '/user_dashboard/orders_page',
-            //             Component: ManagerUser,
-            //         },
-            //         {
-            //             path: '/user_dashboard/review',
-            //             Component: MangerRequest,
-            //         },
-            //         {
-            //             path: '/user_dashboard/favorite',
-            //             Component: PlatformStatistics,
-            //         }
-            //     ]
-            // },
-            // {
-            //     path: 'chef_dashboard',
-            //     element: <PrivateRoute><ChefLayout></ChefLayout></PrivateRoute>,
-            //     children: [
-            //     ]
-            // },
-            // {
-            //     path: 'fooddetails',
-            //     Component: MealDetails,
-            // },
-            // {
-            //     path: '/orderpage',
-            //     Component: OrderPage,
-            // },
         ]
     },
 

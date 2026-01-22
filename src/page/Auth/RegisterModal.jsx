@@ -32,13 +32,12 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
                             email: data.email,
                             photoURL: photoURL,
                             role: 'User',
-                            status: 'Inactive',
+                            status: 'Active',
                             address: data.address,
                         }
                         axiosSecure.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    console.log('after uploade user data')
                                     navigate(location.state || '/')
                                     reset();
                                     onClose();

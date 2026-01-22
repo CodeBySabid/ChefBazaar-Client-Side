@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import UseAuth from '../../hook/UseAuth';
+import { useQuery } from '@tanstack/react-query';
 
 
 const MealDetails = () => {
@@ -16,10 +17,25 @@ const MealDetails = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = UseAuth()
 
+    const formatDate = (date) => {
+        if (!date) return 'N/A';
+        const d = new Date(date);
+        if (isNaN(d.getTime())) return "Invalid date";
+        return d.toISOString().split('T')[0]
+    }
+
     const handleStarClick = (value) => {
         setRating(value);
         setValue("rating", value);
     };
+
+    const { data: reviews = [], refetch } = useQuery({
+        queryKey: ['review'],
+        queryFn: (async () => {
+            const res = await axiosSecure.get('/review')
+            return res.data;
+        })
+    })
 
     const handleReview = (data) => {
         const userInfo = {
@@ -37,6 +53,7 @@ const MealDetails = () => {
                         showCancelButton: false,
                         timer: 2000,
                     });
+                    refetch()
                     reset();
                     setRating(0);
                 }
@@ -44,11 +61,9 @@ const MealDetails = () => {
             )
     }
 
-
     return (
-        <div className='flex flex-col bg-base-300 items-center w-screen pt-16 max-sm:pt-12 '>
+        <div className='flex flex-col bg-base-300 items-center w-screen pt-16 max-sm:pt-12'>
             <div className='rounded max-w-384 w-full'>
-
                 <div className='rounded flex flex-col md:flex-row gap-6 p-2.5 w-full'>
                     <div className='w-full rounded flex-1'>
                         <img className='rounded mx-auto w-full max-w-125 h-full max-h-100' src={image} alt="" />
@@ -145,7 +160,6 @@ const MealDetails = () => {
                                 );
                             })}
                         </div>
-
                         <button
                             className="w-full btn bg-yellow-400 text-black font-semibold py-3 rounded-xl transition"
                         >
@@ -153,19 +167,40 @@ const MealDetails = () => {
                         </button>
                     </div>
                 </form>
-                <section className='flex max-sm:flex-col max-sm:items-center gap-1.5 mt-3 border-b border-gray-500 pb-2.5'>
-                    <div className='flex-1 flex gap-1.5'>
-                        <img className='w-20 h-20 rounded-full' src={'/'} alt="" />
-                        <div>
-                            <h1>{ }Reviewer</h1>
-                            <h2>{ }Rating</h2>
-                            <p>{ }Date</p>
+                {
+                    reviews.map((review, index) => (
+                        <div
+                            key={index}
+                            className="mt-4 rounded-xl bg-base-100 p-4 shadow-sm hover:shadow-md transition"
+                        >
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={review.photoUR || "/user.png"}
+                                    alt={review.name}
+                                    className="w-14 h-14 rounded-full object-cover border"
+                                />
+
+                                <div className="flex-1">
+                                    <h3 className="font-semibold">
+                                        {review.name}
+                                    </h3>
+
+                                    <div className="flex items-center gap-2 text-sm">
+                                        <span className="text-yellow-500">
+                                            {"★".repeat(review.rating)}
+                                            {"☆".repeat(5 - review.rating)}
+                                        </span>
+                                        <span>•</span>
+                                        <span>{formatDate(review.createdAt)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="mt-3 leading-relaxed">
+                                {review.review}
+                            </p>
                         </div>
-                    </div>
-                    <div className='flex-3 md:flex-4 lg:flex-5'>
-                        <p>{ }Comment Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates voluptatum delectus facere voluptatibus dolorum animi enim eius voluptas velit quasi possimus illo tempore, numquam incidunt? A, eum. Cupiditate, enim sunt.</p>
-                    </div>
-                </section>
+                    ))
+                }
             </div>
             <ToastContainer></ToastContainer>
         </div>

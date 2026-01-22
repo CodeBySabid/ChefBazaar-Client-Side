@@ -72,23 +72,22 @@ const Navbar = ({ openLogin, openRegister }) => {
     const links = <>
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
         <NavLink to={'/meal-details'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Meals</NavLink>
-        {/* <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink> */}
         <NavLink to={'/dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Dashboard</NavLink>
     </>
 
     const userProfile = <>
-            <div className="relative group">
-                {user ? (
-                    <Link to={'/dashboard/profile'}>
-                        <img className="rounded-full w-11.25 h-11.25 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="profile" />
-                    </Link>
-                ) : ''}
-                {user && (
-                    <span className="absolute left-1/2 -bottom-10 -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-                        {user.displayName}
-                    </span>
-                )}
-            </div>
+        <div className="relative group">
+            {user ? (
+                <Link to={'/dashboard/profile'}>
+                    <img className="rounded-full w-11.25 h-11.25 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="profile" />
+                </Link>
+            ) : ''}
+            {user && (
+                <span className="absolute left-1/2 -bottom-10 -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                    {user.displayName}
+                </span>
+            )}
+        </div>
     </>
 
     const loginAndRegister = <>

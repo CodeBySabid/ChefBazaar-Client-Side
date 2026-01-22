@@ -78,7 +78,7 @@ const DashboardLayout = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My review">
+                                        <Link to={'/dashboard/my-review'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My review">
                                             {/* Home icon */}
                                             <MdRateReview className="my-1 inline-block size-5"></MdRateReview >
                                             <span className="is-drawer-close:hidden">My review</span>
