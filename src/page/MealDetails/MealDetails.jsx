@@ -3,7 +3,7 @@ import '../ButtonStyle/loginbutton.css'
 import { FaCommentDots, FaHeart, FaStar } from 'react-icons/fa';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import { useForm } from 'react-hook-form';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
@@ -70,9 +70,14 @@ const MealDetails = () => {
                     reset();
                     setRating(0);
                 }
-            }
-            )
+            })
+            .catch(error => {
+                if(error.status === 400) {
+                    toast.error('Please update your review!')
+                }
+            })
     }
+
 
     return (
         <div className='flex flex-col bg-base-200 items-center w-screen pt-16 max-sm:pt-12'>
@@ -161,12 +166,12 @@ const MealDetails = () => {
                             />
                             <FaCommentDots className="absolute top-4 right-4" />
                         </div>
-
                         <div className="flex justify-center gap-2 mb-6">
                             {[...Array(5)]?.map((_, index) => {
                                 const value = index + 1;
                                 return (
                                     <FaStar
+                                        {...register('rating', { required: true })}
                                         key={index}
                                         size={40}
                                         className="cursor-pointer transition-transform hover:scale-110"

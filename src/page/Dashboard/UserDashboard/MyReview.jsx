@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import UseAuth from '../../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import { BiSolidCommentEdit, BiSolidCommentX } from 'react-icons/bi';
 import Swal from 'sweetalert2';
+import { useForm } from 'react-hook-form';
+import { FaCommentDots, FaStar } from 'react-icons/fa';
 
 const MyReview = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = UseAuth();
+    const [rating, setRating] = useState();
+    const [hover, setHover] = useState();
+    const { register, handleSubmit, setValue, reset } = useForm();
+    const [selectedReview, setSelectedReview] = useState();
+
+    const handleStarClick = (value) => {
+        setRating(value);
+        setValue("rating", value)
+    }
+
+    const handleReview = (data) => {
+        console.log(data)
+        // axiosSecure.patch(`/review/${id}/update`, data)
+        //     .then(res => {
+        //         console.log(res.data)
+        //     })
+    }
+
     const formatDate = (dateString) => {
         return new Date(dateString).toISOString().split('T')[0];
     }
@@ -18,6 +38,7 @@ const MyReview = () => {
             return res.data
         })
     })
+
 
     const handleReviewDelete = (id) => {
         console.log(id)
@@ -33,8 +54,8 @@ const MyReview = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     axiosSecure.delete(`/review/${id}`)
-                    .then(res => {
-                        console.log(res)
+                        .then(res => {
+                            console.log(res)
                             refetch();
                             if (res.data.deletedCount) {
                                 Swal.fire({
@@ -47,7 +68,6 @@ const MyReview = () => {
                 }
             })
     }
-    console.log(reviews)
 
     return (
         <div>
@@ -81,7 +101,13 @@ const MyReview = () => {
                                 </div>
                             </div>
                             <div className='flex gap-2 items-center'>
-                                <button className='flex text-white h-8 items-center gap-2 btn bg-[#075af5]'><BiSolidCommentEdit /> Update</button>
+                                <button onClick={() => {
+                                    document.getElementById('my_modal_3').showModal()
+                                    setSelectedReview(review);
+                                    setRating(review.rating);
+                                    setValue("review", review.review);
+                                    setValue('rating', review.rating);
+                                }} className='flex text-white h-8 items-center gap-2 btn bg-[#075af5]'><BiSolidCommentEdit /> Update</button>
                                 <button onClick={() => handleReviewDelete(review._id)} className='btn text-white h-8 border-none bg-red-500 flex items-center'><BiSolidCommentX /> Delete</button>
                             </div>
                         </div>
@@ -91,6 +117,52 @@ const MyReview = () => {
                     </div>
                 ))
             }
+
+            <dialog id="my_modal_3" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleReview)}>
+                        <div className="max-w-xl mx-auto bg-base-100 shadow-lg rounded-2xl p-6 mt-6">
+                            <h2 className="text-xl font-semibold text-center mb-4">
+                                Give Your Review
+                            </h2>
+
+                            <div className="relative mb-4">
+                                <textarea
+                                    className="w-full outline-none p-4 textarea rounded-xl"
+                                    placeholder="Write your comment..."
+                                    {...register('review', { required: true })}
+                                />
+                                <FaCommentDots className="absolute top-4 right-4" />
+                            </div>
+                            <div className="flex justify-center gap-2 mb-6">
+                                {[...Array(5)]?.map((_, index) => {
+                                    const value = index + 1;
+                                    return (
+                                        <FaStar
+                                            key={index}
+                                            size={40}
+                                            className="cursor-pointer transition-transform hover:scale-110"
+                                            color={value <= (hover || rating) ? "#facc15" : "#d1d5db"}
+                                            onClick={() => handleStarClick(value)}
+                                            onMouseEnter={() => setHover(value)}
+                                            onMouseLeave={() => setHover(null)}
+                                        />
+                                    );
+                                })}
+                            </div>
+                            <button
+                                className="w-full btn bg-yellow-400 text-black font-semibold py-3 rounded-xl transition"
+                            >
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
         </div>
     );
 };
