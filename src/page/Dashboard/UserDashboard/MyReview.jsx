@@ -15,22 +15,32 @@ const MyReview = () => {
     const { register, handleSubmit, setValue, reset } = useForm();
     const [selectedReview, setSelectedReview] = useState();
 
+    const formatDate = (dateString) => {
+        return new Date(dateString).toISOString().split('T')[0];
+    }
+
     const handleStarClick = (value) => {
         setRating(value);
         setValue("rating", value)
     }
-
     const handleReview = (data) => {
-        console.log(data)
-        // axiosSecure.patch(`/review/${id}/update`, data)
-        //     .then(res => {
-        //         console.log(res.data)
-        //     })
-    }
+        document.activeElement.blur();
+        axiosSecure
+            .patch(`/review/${selectedReview._id}`, {
+                review: data.review,
+                rating: data.rating
+            })
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire("Updated!", "Review updated successfully", "success");
+                    refetch();
+                    reset();
+                    setSelectedReview(null);
+                    document.getElementById('my_modal_3').close();
+                }
+            });
+    };
 
-    const formatDate = (dateString) => {
-        return new Date(dateString).toISOString().split('T')[0];
-    }
     const { data: reviews = [], refetch } = useQuery({
         queryKey: ['reviews', user?.email],
         queryFn: (async () => {
@@ -38,7 +48,6 @@ const MyReview = () => {
             return res.data
         })
     })
-
 
     const handleReviewDelete = (id) => {
         console.log(id)
@@ -55,7 +64,6 @@ const MyReview = () => {
                 if (result.isConfirmed) {
                     axiosSecure.delete(`/review/${id}`)
                         .then(res => {
-                            console.log(res)
                             refetch();
                             if (res.data.deletedCount) {
                                 Swal.fire({
@@ -102,11 +110,12 @@ const MyReview = () => {
                             </div>
                             <div className='flex gap-2 items-center'>
                                 <button onClick={() => {
-                                    document.getElementById('my_modal_3').showModal()
                                     setSelectedReview(review);
                                     setRating(review.rating);
                                     setValue("review", review.review);
                                     setValue('rating', review.rating);
+                                    document.activeElement.blur();
+                                    document.getElementById('my_modal_3').showModal()
                                 }} className='flex text-white h-8 items-center gap-2 btn bg-[#075af5]'><BiSolidCommentEdit /> Update</button>
                                 <button onClick={() => handleReviewDelete(review._id)} className='btn text-white h-8 border-none bg-red-500 flex items-center'><BiSolidCommentX /> Delete</button>
                             </div>
