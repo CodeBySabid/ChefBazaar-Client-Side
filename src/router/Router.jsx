@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
                 Component: Home,
             },
             {
-                path: 'meal-details',
+                path: 'meal-details/:id',
                 element: <PrivateRoute><MealDetails></MealDetails></PrivateRoute>
             },
             {

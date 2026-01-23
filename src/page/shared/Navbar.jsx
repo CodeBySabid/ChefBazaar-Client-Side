@@ -102,7 +102,6 @@ const Navbar = ({ openLogin, openRegister }) => {
             </span>
         </button>
     </>
-    console.log(user)
 
     const logout = <>
         <button onClick={() => logOut()} className="btn-17">
