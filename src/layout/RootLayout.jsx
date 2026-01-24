@@ -8,7 +8,7 @@ import Footer from '../page/shared/Footer';
 const RootLayout = () => {
     const [authModal, setAuthModal] = useState(null);
     return (
-        <div>
+        <div className='overflow-x-hidden'>
             <Navbar
                 openLogin={() => setAuthModal("login")}
                 openRegister={() => setAuthModal("register")}

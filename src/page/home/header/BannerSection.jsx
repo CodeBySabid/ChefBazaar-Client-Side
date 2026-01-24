@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from "framer-motion";
 import { FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from 'react-router';
 
 const BannerSection = () => {
     return (
@@ -42,9 +43,9 @@ const BannerSection = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.6 }}
                         >
-                            <button className="btn btn-primary px-8">
+                            <Link to={'/all-meal'} className="btn btn-primary px-8">
                                 <FaUtensils className="mr-2" /> Explore Meals
-                            </button>
+                            </Link>
                             <button className="btn btn-outline">
                                 <FaMapMarkerAlt className="mr-2" /> Find Chefs Nearby
                             </button>

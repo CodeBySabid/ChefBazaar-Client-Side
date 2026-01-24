@@ -76,10 +76,10 @@ const AllMeal = () => {
                 </button>
 
                 <Link
-                  to={`/food/${food._id}`}
+                  to={`/meal-details/${food._id}`}
                   className="flex-1 border border-[#5D3327] text-center py-3 rounded-xl font-semibold hover:bg-[#5D3327] hover:text-white transition"
                 >
-                  Details
+                  See Details
                 </Link>
               </div>
             </div>
