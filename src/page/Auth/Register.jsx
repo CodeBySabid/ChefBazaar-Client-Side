@@ -16,8 +16,8 @@ const Register = () => {
     const location = useLocation()
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
     const axiosSecure = useAxiosSecure()
-
     const password = watch("password")
+    console.log(location)
 
     const handleRegistration = (data) => {
         const profileImg = data.profileimage[0];

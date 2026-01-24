@@ -38,7 +38,7 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
                         axiosSecure.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    navigate(location.state || '/')
+                                    navigate(location.state.from.pathname || '/')
                                     reset();
                                     onClose();
                                 }
@@ -71,7 +71,7 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
 
             await axios.post('http://localhost:3000/users', userInfo);
 
-            navigate(location.state || '/');
+            navigate(location.state.from.pathname || '/');
             reset();
             onClose();
         } catch (error) {

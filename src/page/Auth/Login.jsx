@@ -11,11 +11,11 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const naviget = useNavigate();
     const location = useLocation();
-
     const handleLogin = (data) => {
         loginUser(data.email, data.password)
             .then(() => {
-                naviget(location.state || '/')
+                naviget(location.state.from.
+pathname || '/')
             })
             .catch(error => {
                 console.log(error)
@@ -23,7 +23,7 @@ const Login = () => {
     }
     useEffect(() => {
         if (user) {
-            naviget(location.state || '/');
+            naviget(location.state.from.pathname || '/');
         }
     }, [user, naviget, location.state]);
     return (

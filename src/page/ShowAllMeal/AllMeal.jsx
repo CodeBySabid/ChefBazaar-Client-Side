@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { FaStar } from 'react-icons/fa';
 
 const AllMeal = () => {
   const axiosSecure = useAxiosSecure();
+  const [sortOrder, setSortOrder] = useState('asc');
 
   const { data: foods = [] } = useQuery({
-    queryKey: ['foods'],
+    queryKey: ['foods', sortOrder],
     queryFn: async () => {
-      const res = await axiosSecure.get('/food');
+      const res = await axiosSecure.get(`/food?sort=${sortOrder}`);
       return res.data;
     },
   });
+
+  const handleSortChange = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
 
   return (
     <div className="min-h-screen bg-base-200 px-6 py-16">
       <h1 className="text-4xl font-bold text-center mb-12">
         🍽️ All Delicious Meals
       </h1>
+
+      <div className="flex justify-end mb-4">
+        <button onClick={handleSortChange} className="bg-[#5D3327] hover:bg-[#4a281f] text-white py-2 px-4 rounded-xl font-semibold transition">
+          Sort by Price ({sortOrder === 'asc' ? 'Low to High' : 'High to Low'})
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
         {foods.map((food) => (
