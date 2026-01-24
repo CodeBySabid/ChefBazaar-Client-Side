@@ -71,7 +71,7 @@ const Navbar = ({ openLogin, openRegister }) => {
 
     const links = <>
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
-        <NavLink to={'/meal-details'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Meals</NavLink>
+        <NavLink to={'/all-meal'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Meals</NavLink>
         <NavLink to={'/dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Dashboard</NavLink>
     </>
 

@@ -15,7 +15,7 @@ const DailyMealsSection = () => {
 
     return (
         <div className="p-10 bg-base-200">
-            <div className="grid container mx-auto items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid max-w-384 w-full mx-auto items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {foods?.map((food) => (
                     <div key={food._id} className="group bg-base-300 relative rounded-xl overflow-hidden shadow-lg">
                         {/* Image */}

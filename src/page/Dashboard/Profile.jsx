@@ -30,7 +30,7 @@ const Profile = () => {
     const handleRequest = (requestRole) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "Would you like to send a request to become a Admin?",
+            text: `Would you like to send a request to become a ${requestRole}?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -45,8 +45,8 @@ const Profile = () => {
                             if (res.data.modifiedCount) {
                                 refetch()
                                 Swal.fire({
-                                    title: "Yes!",
-                                    text: "Your file has been deleted.",
+                                    title: "Success!",
+                                    text: `Request for ${requestRole} sent successfully.`,
                                     icon: "success"
                                 });
                             }
@@ -120,7 +120,7 @@ const Profile = () => {
                             </>
                         }
                         {
-                            users.requestInfo === 'Admin' ? <button onClick={() => handleRequest('Admin')}
+                            users.requestInfo === 'Admin' ? <button
                                 className="relative cursor-not-allowed px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black text-white"
                             >
                                 <span className="relative text-xl font-semibold">Be a Admin</span>

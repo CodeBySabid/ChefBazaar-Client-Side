@@ -10,6 +10,7 @@ import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUse
 import MealDetails from "../page/MealDetails/MealDetails";
 import ChefRequests from "../page/home/ChefRequests/ChefRequests";
 import MyReview from "../page/Dashboard/UserDashboard/MyReview";
+import AllMeal from "../page/ShowAllMeal/AllMeal";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
+            },
+            {
+                path: 'all-meal',
+                Component: AllMeal,
             },
             {
                 path: 'meal-details/:id',
