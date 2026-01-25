@@ -82,13 +82,13 @@ const AllMeal = () => {
 
               {/* Buttons */}
               <div className="flex gap-4 pt-4">
-                <button className="flex-1 bg-[#5D3327] hover:bg-[#4a281f] text-white py-3 rounded-xl font-semibold transition">
+                <Link to={`/order/${food._id}`} className="btn flex-1 bg-[#5D3327] hover:bg-[#4a281f] text-white py-3 rounded-xl font-semibold transition">
                   Buy Now
-                </button>
+                </Link>
 
                 <Link
                   to={`/meal-details/${food._id}`}
-                  className="flex-1 border border-[#5D3327] text-center py-3 rounded-xl font-semibold hover:bg-[#5D3327] hover:text-white transition"
+                  className="btn flex-1 border border-[#5D3327] text-center py-3 rounded-xl font-semibold hover:bg-[#5D3327] hover:text-white transition"
                 >
                   See Details
                 </Link>

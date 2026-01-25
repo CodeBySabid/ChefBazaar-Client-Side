@@ -4,6 +4,7 @@ import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 const OrderPage = () => {
     const navigate = useNavigate();
     const location = useLocation()
@@ -47,8 +48,43 @@ const OrderPage = () => {
     }, [foods, user, reset])
 
     const handleOder = (data) => {
-        console.log(data)
-        reset()
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Your total price is ${foods.price * data.Quantity}.`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    const orderData = {
+                        foodId: id,
+                        foodName: data.MealName,
+                        price: foods.price,
+                        quantity: data.Quantity,
+                        totalPrice: foods.price * data.Quantity,
+                        chefId: foods.ChefId,
+                        paymentStatus: "Pending",
+                        userEmail: data.UserEmail,
+                        userAddress: data.UserAddress,
+                        orderStatus: "Pending",
+                        orderTime: new Date(),
+                    }
+                    axiosSecure.post('/order', orderData)
+                        .then(res => {
+                            if (res.data.insertedId) {
+                                Swal.fire({
+                                    title: "successfully!",
+                                    text: "Order placed successfully!",
+                                    icon: "success"
+                                });
+                                reset();
+                            }
+                        })
+                }
+            });
     }
 
     return (
