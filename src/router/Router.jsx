@@ -11,6 +11,7 @@ import MealDetails from "../page/MealDetails/MealDetails";
 import ChefRequests from "../page/home/ChefRequests/ChefRequests";
 import MyReview from "../page/Dashboard/UserDashboard/MyReview";
 import AllMeal from "../page/ShowAllMeal/AllMeal";
+import OrderPage from "../page/OrderPage/OrderPage";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: 'meal-details/:id',
                 element: <PrivateRoute><MealDetails></MealDetails></PrivateRoute>
+            },
+            {
+                path: 'order/:id',
+                element: <PrivateRoute><OrderPage></OrderPage></PrivateRoute>
             },
             {
                 path: 'login',

@@ -97,7 +97,6 @@ const MyReview = () => {
                                     <h3 className="font-semibold">
                                         {review.name}
                                     </h3>
-
                                     <div className="flex items-center gap-2 text-sm">
                                         <span className="text-yellow-500">
                                             {"★".repeat(review.rating)}
@@ -120,13 +119,13 @@ const MyReview = () => {
                                 <button onClick={() => handleReviewDelete(review._id)} className='btn text-white h-8 border-none bg-red-500 flex items-center'><BiSolidCommentX /> Delete</button>
                             </div>
                         </div>
+                        <h1 className='mt-2 '><span className='text-green-600'>Food Name :</span> {review.foodName}</h1>
                         <p className="mt-3 leading-relaxed">
                             {review.review}
                         </p>
                     </div>
                 ))
             }
-
             <dialog id="my_modal_3" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <form method="dialog">

@@ -54,7 +54,7 @@ const Register = () => {
                                 console.log(error);
                             })
                     })
-                navigate(location.state || '/');
+                navigate(location?.state?.from?.pathname || '/');
             })
             .catch(error => {
                 console.log(error)
@@ -73,7 +73,7 @@ const Register = () => {
                 status: 'Inactive',
             };
             await axios.post('http://localhost:3000/users', userInfo);
-            navigate(location.state || '/');
+            navigate(location?.state?.from?.pathname || '/');
         }
         catch (error) {
             toast.error(error.message);

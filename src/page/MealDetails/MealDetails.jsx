@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 
 
 const MealDetails = () => {
@@ -138,11 +138,11 @@ const MealDetails = () => {
                 </div>
                 <div className='flex w-full justify-center mt-10 sm:gap-6 gap-1.5'>
                     <div className='flex justify-center'>
-                        <button className="btn-17">
+                        <Link to={`/order/${foods._id}`} className="btn-17">
                             <span className="text-container">
                                 <span className="text">Order Now</span>
                             </span>
-                        </button>
+                        </Link>
                     </div>
                     <div className='flex justify-center'>
                         <button className="btn-17">

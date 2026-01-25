@@ -38,7 +38,7 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
                         axiosSecure.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    navigate(location.state.from.pathname || '/')
+                                    navigate(location?.state?.from?.pathname || '/')
                                     reset();
                                     onClose();
                                 }

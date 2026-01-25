@@ -14,7 +14,7 @@ const Login = () => {
     const handleLogin = (data) => {
         loginUser(data.email, data.password)
             .then(() => {
-                naviget(location.state.from.
+                naviget(location?.state?.from?.
 pathname || '/')
             })
             .catch(error => {
@@ -23,7 +23,7 @@ pathname || '/')
     }
     useEffect(() => {
         if (user) {
-            naviget(location.state.from.pathname || '/');
+            naviget(location?.state?.from?.pathname || '/');
         }
     }, [user, naviget, location.state]);
     return (

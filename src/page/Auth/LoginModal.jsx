@@ -8,11 +8,11 @@ const LoginModal = ({ open, onClose, goRegister }) => {
     const { loginUser } = UseAuth();
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
     const handleLogin = (data) => {
         loginUser(data.email, data.password)
             .then(() => {
-                navigate(location.state.from.pathname || '/')
+                navigate(location?.state?.from?.pathname || '/')
                 reset();
                 onClose();
             })
