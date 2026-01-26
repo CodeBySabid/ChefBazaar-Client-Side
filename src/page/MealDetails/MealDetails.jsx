@@ -61,7 +61,7 @@ const MealDetails = () => {
             .then(res => {
                 if (res.data.insertedId) {
                     Swal.fire({
-                        title: "",
+                        title: "Review submitted successfully!",
                         icon: "success",
                         showCancelButton: false,
                         timer: 2000,
@@ -72,8 +72,30 @@ const MealDetails = () => {
                 }
             })
             .catch(error => {
-                if(error.status === 400) {
+                if (error.status === 400) {
                     toast.error('Please update your review!')
+                }
+            })
+    }
+
+    const handleFavorite = (id) => {
+        const userData = {
+            email: user.email,
+        }
+        axiosSecure.post(`/favorite/${id}`, userData)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        title: "Favorite meal submitted successfully!",
+                        icon: "success",
+                        showCancelButton: false,
+                        timer: 2000,
+                    });
+                }
+            })
+            .catch(error => {
+                if(error.status === 301 ){
+                    toast.error('Already added to favorites')
                 }
             })
     }
@@ -145,7 +167,7 @@ const MealDetails = () => {
                         </Link>
                     </div>
                     <div className='flex justify-center'>
-                        <button className="btn-17">
+                        <button onClick={() => handleFavorite(foods._id)} className="btn-17">
                             <span className="text-container flex ">
                                 <span className="flex items-center gap-2"><FaHeart className='text-red-700'></FaHeart> Favorite</span>
                             </span>

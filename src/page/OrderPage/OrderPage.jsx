@@ -49,7 +49,7 @@ const OrderPage = () => {
 
     const handleOder = (data) => {
         Swal.fire({
-            title: "Are you sure?",
+            title: "Do you want to confirm the order?",
             text: `Your total price is ${foods.price * data.Quantity}.`,
             icon: "warning",
             showCancelButton: true,
