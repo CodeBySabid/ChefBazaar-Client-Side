@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../../hook/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import UseAuth from '../../../../hook/UseAuth';
 import { BiSolidCommentX } from 'react-icons/bi';
+import Swal from 'sweetalert2';
 
 const UserFavoriteMeal = () => {
     const axiosSecure = useAxiosSecure();
@@ -12,7 +13,7 @@ const UserFavoriteMeal = () => {
         return new Date(dateString).toISOString().split('T')[0]
     }
 
-    const { data: favorites = [] } = useQuery({
+    const { data: favorites = [], refetch } = useQuery({
         queryKey: ['favorites', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -22,12 +23,35 @@ const UserFavoriteMeal = () => {
     });
 
     const handleReviewDelete = (id) => {
-        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    axiosSecure.delete(`/favorite/${id}`)
+                        .then(res => {
+                            refetch();
+                            if (res.data.deletedCount) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        });
+                }
+            })
     }
     return (
         <div>
-            <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-semibold'>My review ({favorites.length})</h1>
-            <div className="overflow-x-auto">
+            <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-semibold'>My Favorite Meal ({favorites.length})</h1>
+            <div className="overflow-x-auto mt-2">
                 <table className="table">
                     <thead>
                         <tr>
