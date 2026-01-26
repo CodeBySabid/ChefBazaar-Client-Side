@@ -1,7 +1,7 @@
 import React from 'react';
-import useAxiosSecure from '../../../../hook/useAxiosSecure';
+import useAxiosSecure from '../../../hook/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import UseAuth from '../../../../hook/UseAuth';
+import UseAuth from '../../../hook/UseAuth';
 import { BiSolidCommentX } from 'react-icons/bi';
 import Swal from 'sweetalert2';
 
@@ -40,7 +40,7 @@ const UserFavoriteMeal = () => {
                             if (res.data.deletedCount) {
                                 Swal.fire({
                                     title: "Deleted!",
-                                    text: "Your file has been deleted.",
+                                    text: "Meal removed from favorites successfully",
                                     icon: "success"
                                 });
                             }
