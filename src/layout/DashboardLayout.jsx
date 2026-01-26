@@ -85,7 +85,7 @@ const DashboardLayout = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorite Meal">
+                                        <Link to={'/dashboard/my-favorite'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorite Meal">
                                             {/* Home icon */}
                                             <FaBowlFood className="my-1 inline-block size-5"></FaBowlFood  >
                                             <span className="is-drawer-close:hidden">Favorite Meal</span>

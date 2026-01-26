@@ -12,6 +12,7 @@ import ChefRequests from "../page/home/ChefRequests/ChefRequests";
 import MyReview from "../page/Dashboard/UserDashboard/MyReview";
 import AllMeal from "../page/ShowAllMeal/AllMeal";
 import OrderPage from "../page/OrderPage/OrderPage";
+import UserFavoriteMeal from "../page/Dashboard/UserDashboard/UserFavoriteMeal/UserFavoriteMeal";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
                     {
                         path: 'my-review',
                         Component: MyReview,
+                    },
+                    {
+                        path: 'my-favorite',
+                        Component: UserFavoriteMeal,
                     },
                 ]
             },

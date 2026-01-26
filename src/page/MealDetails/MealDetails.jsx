@@ -100,7 +100,6 @@ const MealDetails = () => {
             })
     }
 
-
     return (
         <div className='flex flex-col bg-base-200 items-center w-screen pt-16 max-sm:pt-12'>
             <div className='rounded max-w-384 w-full'>
