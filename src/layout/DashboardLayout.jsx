@@ -25,8 +25,6 @@ const DashboardLayout = () => {
                         <div className="px-4">ChefBazaar</div>
                     </nav>
                     <div><Outlet></Outlet></div>
-                    {/* Page content here */}
-                    <div className="p-4">Page Content</div>
                 </div>
 
                 <div className="drawer-side max-lg:pt-12 max-lg:sm:pt-16 is-drawer-close:overflow-visible">
