@@ -21,7 +21,31 @@ const ManagerUser = () => {
     }
 
     const handleFraud = (data, status) => {
-        
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Do you want to ${data.name} fraud?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    const makeFraud = { status }
+                    axiosSecure.patch(`/makefraud/${data._id}`, makeFraud)
+                        .then(res => {
+                            if (res.data.modifiedCount) {
+                                refetch()
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: `${data.name} has been fraud successfully.`,
+                                    icon: "success"
+                                });
+                            }
+                        })
+                }
+            })
     }
 
     return (
