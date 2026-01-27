@@ -6,13 +6,22 @@ import Login from "../page/Auth/Login";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
 import Profile from "../page/Dashboard/Profile";
-import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser/ManagerUser";
 import MealDetails from "../page/MealDetails/MealDetails";
-import ChefRequests from "../page/home/ChefRequests/ChefRequests";
 import MyReview from "../page/Dashboard/UserDashboard/MyReview";
 import AllMeal from "../page/ShowAllMeal/AllMeal";
 import OrderPage from "../page/OrderPage/OrderPage";
-import UserFavoriteMeal from "../page/Dashboard/UserDashboard/UserFavoriteMeal/UserFavoriteMeal";
+import AdminRouter from "./AdminRouter";
+import UserRouter from "./UserRouter";
+import UserFavoriteMeal from "../page/Dashboard/UserDashboard/UserFavoriteMeal";
+import ManagerUser from "../page/Dashboard/AdminDashboard/ManagerUser";
+import CreateMeals from "../page/Dashboard/ChefDashboard/CreateMeals";
+import ChefRouter from "./ChefRouter";
+import ChefMeals from "../page/Dashboard/ChefDashboard/ChefMeals";
+import OrderRequests from "../page/Dashboard/ChefDashboard/OrderRequests";
+import PlatformStatistics from "../page/Dashboard/AdminDashboard/PlatformStatistics/PlatformStatistics";
+import MangerRequest from "../page/Dashboard/AdminDashboard/MangerRequest";
+import UserOrder from "../page/Dashboard/UserDashboard/UserOrder";
+import FraudPage from "../page/fraudPage/FraudPage";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: 'all-meal',
                 Component: AllMeal,
+            },
+            {
+                path: 'fraud',
+                Component: FraudPage,
             },
             {
                 path: 'meal-details/:id',
@@ -53,19 +66,39 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'manager_page',
-                        Component: ManagerUser
+                        element: <AdminRouter><ManagerUser></ManagerUser></AdminRouter>
                     },
                     {
-                        path: 'be-a-chef',
-                        element: <ChefRequests></ChefRequests>,
+                        path: 'plat-form',
+                        element: <AdminRouter><PlatformStatistics></PlatformStatistics></AdminRouter>
+                    },
+                    {
+                        path: 'manger-request',
+                        element: <AdminRouter><MangerRequest></MangerRequest></AdminRouter>
+                    },
+                    {
+                        path: 'create-meal',
+                        element: <ChefRouter><CreateMeals></CreateMeals></ChefRouter>
+                    },
+                    {
+                        path: 'chef-meals',
+                        element: <ChefRouter><ChefMeals></ChefMeals></ChefRouter>
+                    },
+                    {
+                        path: 'order-request',
+                        element: <ChefRouter><OrderRequests></OrderRequests></ChefRouter>
                     },
                     {
                         path: 'my-review',
-                        Component: MyReview,
+                        element: <UserRouter><MyReview></MyReview></UserRouter>,
                     },
                     {
                         path: 'my-favorite',
-                        Component: UserFavoriteMeal,
+                        element: <UserRouter><UserFavoriteMeal></UserFavoriteMeal></UserRouter> ,
+                    },
+                    {
+                        path: 'my-order',
+                        element: <UserRouter><UserOrder></UserOrder></UserRouter> ,
                     },
                 ]
             },

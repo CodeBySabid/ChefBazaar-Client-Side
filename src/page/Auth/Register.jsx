@@ -16,8 +16,7 @@ const Register = () => {
     const location = useLocation()
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
     const axiosSecure = useAxiosSecure()
-    const password = watch("password")
-    console.log(location)
+    const password = watch("password");
 
     const handleRegistration = (data) => {
         const profileImg = data.profileimage[0];
@@ -51,13 +50,13 @@ const Register = () => {
                         updateUserProfile(userProfile)
                             .then()
                             .catch(error => {
-                                console.log(error);
+                                toast.error(error.message);
                             })
                     })
                 navigate(location?.state?.from?.pathname || '/');
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error.message);
             })
     }
 

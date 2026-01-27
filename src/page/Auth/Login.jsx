@@ -14,8 +14,7 @@ const Login = () => {
     const handleLogin = (data) => {
         loginUser(data.email, data.password)
             .then(() => {
-                naviget(location?.state?.from?.
-pathname || '/')
+                naviget(location?.state?.from?.pathname || '/')
             })
             .catch(error => {
                 console.log(error)

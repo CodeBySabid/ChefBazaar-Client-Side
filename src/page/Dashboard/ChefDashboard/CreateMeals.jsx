@@ -1,18 +1,14 @@
-import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router';
-import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../hook/useAxiosSecure';
-import { useEffect } from 'react';
-import Swal from 'sweetalert2';
-const OrderPage = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { register, watch, setValue, reset, handleSubmit, formState: { errors } } = useForm()
-    const axiosSecure = useAxiosSecure();
-    const { user } = UseAuth();
-    const { id } = useParams();
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import UseAuth from '../../../hook/UseAuth';
+import useAxiosSecure from '../../../hook/useAxiosSecure';
+import { useNavigate } from 'react-router';
 
+const CreateMeals = () => {
+    const axiosSecure = useAxiosSecure();
+    const {user} = UseAuth();
+    const navigate = useNavigate();
 
     const { data: users = {} } = useQuery({
         queryKey: ['users', user?.email],
@@ -29,79 +25,10 @@ const OrderPage = () => {
         }
     }, [navigate, users])
 
-    const formatDate = (dateString) => {
-        return new Date(dateString).toISOString().split('T')[0];
-    }
-
-    const { data: foods = [] } = useQuery({
-        queryKey: ['food'],
-        queryFn: (async () => {
-            const res = await axiosSecure.get(`/food/${id}`);
-            return res.data
-        })
-    })
-
-    const quantity = watch("Quantity", 1);
-    const basePrice = Number(foods?.price || 0);
-
-    useEffect(() => {
-        if (quantity && basePrice) {
-            setValue("price", quantity * basePrice);
-        }
-    }, [quantity, basePrice, setValue]);
-
-    useEffect(() => {
-        if (foods && user) {
-            reset({
-                MealName: foods.foodName,
-                quantity: 1,
-                price: foods.price,
-                ChefId: foods.chefId,
-                UserEmail: user.email,
-                OrderStatus: "Pending",
-                OrderTime: formatDate(new Date()),
-            })
-        }
-    }, [foods, user, reset])
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
     const handleOder = (data) => {
-        Swal.fire({
-            title: "Do you want to confirm the order?",
-            text: `Your total price is ${foods.price * data.Quantity}.`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    const orderData = {
-                        foodId: id,
-                        foodName: data.MealName,
-                        price: foods.price,
-                        quantity: data.Quantity,
-                        totalPrice: foods.price * data.Quantity,
-                        chefId: foods.ChefId,
-                        paymentStatus: "Pending",
-                        userEmail: data.UserEmail,
-                        userAddress: data.UserAddress,
-                        orderStatus: "Pending",
-                        orderTime: new Date(),
-                    }
-                    axiosSecure.post('/order', orderData)
-                        .then(res => {
-                            if (res.data.insertedId) {
-                                Swal.fire({
-                                    title: "successfully!",
-                                    text: "Order placed successfully!",
-                                    icon: "success"
-                                });
-                                reset();
-                            }
-                        })
-                }
-            });
+        console.log(data)
     }
 
     return (
@@ -209,4 +136,4 @@ const OrderPage = () => {
     );
 };
 
-export default OrderPage;
+export default CreateMeals;
