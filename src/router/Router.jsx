@@ -23,6 +23,7 @@ import MangerRequest from "../page/Dashboard/AdminDashboard/MangerRequest";
 import UserOrder from "../page/Dashboard/UserDashboard/UserOrder";
 import FraudPage from "../page/fraudPage/FraudPage";
 import UpDateMeal from "../page/Dashboard/ChefDashboard/UpDateMeal";
+import ErrorPage from "../page/error/ErrorPageProps ";
 
 export const router = createBrowserRouter([
     {
@@ -108,6 +109,10 @@ export const router = createBrowserRouter([
                 ]
             },
         ]
+    },
+    {
+        path: '*',
+        element: <ErrorPage></ErrorPage>
     },
 
 ])
