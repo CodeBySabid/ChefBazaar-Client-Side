@@ -17,6 +17,8 @@ const AllMeal = () => {
     },
   });
 
+  console.log(foods)
+
   const handleSortChange = () => {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };

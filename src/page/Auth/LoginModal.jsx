@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router';
 import UseAuth from '../../hook/UseAuth';
+import { toast, ToastContainer } from 'react-toastify';
 const LoginModal = ({ open, onClose, goRegister }) => {
     const [showPassword, setShowPassword] = useState(false);
     const { loginUser } = UseAuth();
@@ -17,7 +18,21 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                 onClose();
             })
             .catch(error => {
-                console.log(error)
+                if (error.code === "auth/user-not-found") {
+                    toast.error('Email is incorrect!');
+                }
+                else if (error.code === "auth/wrong-password") {
+                    toast.error("Password is incorrect!");
+                }
+                else if (error.code === "auth/invalid-email") {
+                    toast.error("Email format is invalid!");
+                }
+                else if (error.code === "auth/invalid-credential") {
+                    toast.error("Please check your password and email!");
+                }
+                else {
+                    toast.error(error.message);
+                }
             })
     }
 
@@ -86,6 +101,7 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                     </span>
                 </p>
             </div>
+            <ToastContainer></ToastContainer>
         </dialog>
     );
 };

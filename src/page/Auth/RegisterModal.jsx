@@ -68,9 +68,7 @@ const RegisterModal = ({ open, onClose, goLogin }) => {
                 role: 'User',
                 status: 'Inactive',
             };
-
             await axios.post('http://localhost:3000/users', userInfo);
-
             navigate(location.state.from.pathname || '/');
             reset();
             onClose();

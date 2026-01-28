@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hook/useAxiosSecure';
@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 const OrderPage = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { register, watch, setValue, reset, handleSubmit, formState: { errors } } = useForm()
     const axiosSecure = useAxiosSecure();
     const { user } = UseAuth();

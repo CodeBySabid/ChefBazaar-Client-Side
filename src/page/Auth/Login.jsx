@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import bgimage from '../../assets/images.avif'
 import UseAuth from '../../hook/UseAuth';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Login = () => {
     const { loginUser, user } = UseAuth()
@@ -17,7 +18,21 @@ const Login = () => {
                 naviget(location?.state?.from?.pathname || '/')
             })
             .catch(error => {
-                console.log(error)
+                if (error.code === "auth/user-not-found") {
+                    toast.error('Email is incorrect!');
+                }
+                else if (error.code === "auth/wrong-password") {
+                    toast.error("Password is incorrect!");
+                }
+                else if (error.code === "auth/invalid-email") {
+                    toast.error("Email format is invalid!");
+                }
+                else if (error.code === "auth/invalid-credential") {
+                    toast.error("Please check your password and email!");
+                }
+                else {
+                    toast.error(error.message);
+                }
             })
     }
     useEffect(() => {
@@ -71,6 +86,7 @@ const Login = () => {
                     Don’t have an account? <Link to={'/register'} className='text-red-400 hover:font-semibold hover:text-blue-400'>Sign Up</Link>
                 </p>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

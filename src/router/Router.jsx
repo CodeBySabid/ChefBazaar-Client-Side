@@ -22,6 +22,7 @@ import PlatformStatistics from "../page/Dashboard/AdminDashboard/PlatformStatist
 import MangerRequest from "../page/Dashboard/AdminDashboard/MangerRequest";
 import UserOrder from "../page/Dashboard/UserDashboard/UserOrder";
 import FraudPage from "../page/fraudPage/FraudPage";
+import UpDateMeal from "../page/Dashboard/ChefDashboard/UpDateMeal";
 
 export const router = createBrowserRouter([
     {
@@ -42,11 +43,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'meal-details/:id',
-                element: <PrivateRoute><MealDetails></MealDetails></PrivateRoute>
+                element: <PrivateRoute><MealDetails></MealDetails></PrivateRoute>,
             },
             {
                 path: 'order/:id',
-                element: <PrivateRoute><OrderPage></OrderPage></PrivateRoute>
+                element: <PrivateRoute><OrderPage></OrderPage></PrivateRoute>,
             },
             {
                 path: 'login',
@@ -66,15 +67,15 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'manager_page',
-                        element: <AdminRouter><ManagerUser></ManagerUser></AdminRouter>
+                        element: <AdminRouter><ManagerUser></ManagerUser></AdminRouter>,
                     },
                     {
                         path: 'plat-form',
-                        element: <AdminRouter><PlatformStatistics></PlatformStatistics></AdminRouter>
+                        element: <AdminRouter><PlatformStatistics></PlatformStatistics></AdminRouter>,
                     },
                     {
                         path: 'manger-request',
-                        element: <AdminRouter><MangerRequest></MangerRequest></AdminRouter>
+                        element: <AdminRouter><MangerRequest></MangerRequest></AdminRouter>,
                     },
                     {
                         path: 'create-meal',
@@ -82,11 +83,15 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'chef-meals',
-                        element: <ChefRouter><ChefMeals></ChefMeals></ChefRouter>
+                        element: <ChefRouter><ChefMeals></ChefMeals></ChefRouter>,
+                    },
+                    {
+                        path: 'update-meals/:id',
+                        element: <ChefRouter><UpDateMeal></UpDateMeal></ChefRouter>,
                     },
                     {
                         path: 'order-request',
-                        element: <ChefRouter><OrderRequests></OrderRequests></ChefRouter>
+                        element: <ChefRouter><OrderRequests></OrderRequests></ChefRouter>,
                     },
                     {
                         path: 'my-review',
