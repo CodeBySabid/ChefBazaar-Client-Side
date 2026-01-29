@@ -2,10 +2,7 @@ import { FaUsers, FaDollarSign, FaTruck, FaClock } from "react-icons/fa";
 import PaymentChart from "./PaymentChart";
 import OrderPieChart from "./OrderPieChart";
 import UserGrowthChart from "./UserGrowthChart";
-
-
-import React from 'react';
-import StatCard from "./StatCard";
+import StatCard from "./StatCard"
 
 const PlatformStatistics = () => {
   return (

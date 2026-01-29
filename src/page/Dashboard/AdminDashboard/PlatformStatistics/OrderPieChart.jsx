@@ -1,10 +1,32 @@
 import React from 'react';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
+import useAxiosSecure from '../../../../hook/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const OrderPieChart = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const {data: pending = [], refetch} = useQuery({
+    queryKey: ['pending'],
+    queryFn: (async() => {
+      const res = await axiosSecure.get(`/order-pending`)
+      return res.data
+    })
+  })
+
+  const {data: delivered = []} = useQuery({
+    queryKey: ['delivered'],
+    queryFn: (async() => {
+      const res = await axiosSecure.get(`/order-delivered`)
+      return res.data
+    })
+  })
+
+  refetch()
+
   const data = [
-    { name: "Delivered", value: 1230 },
-    { name: "Pending", value: 45 },
+    { name: "Delivered", value: delivered.length },
+    { name: "Pending", value: pending.length},
   ]
   const colors = ["#22c55e", "#f97316"];
   return (
