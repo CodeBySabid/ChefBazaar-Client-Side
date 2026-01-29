@@ -6,6 +6,26 @@ import { useQuery } from '@tanstack/react-query';
 import { FaEdit, FaStar, FaTrash } from 'react-icons/fa';
 
 const UserOrder = () => {
+    const axiosSecure = useAxiosSecure();
+
+    const { data: orders = [] } = useQuery({
+        queryKey: ['order'],
+        queryFn: (async () => {
+            const res = await axiosSecure.get('/order')
+            return res.data
+        })
+    })
+
+    const handlePayment = async (order) => {
+        const paymentInfo = {
+            price: order.totalPrice,
+            foodId: order._id,
+            userEmail: order.userEmail,
+            foodName: order.foodName,
+        }
+        const res = await axiosSecure.post('/payment-checkout', paymentInfo);
+        window.location.assign(res.data.url);
+    }
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">

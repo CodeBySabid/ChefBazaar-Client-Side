@@ -41,7 +41,7 @@ const Login = () => {
         }
     }, [user, naviget, location.state]);
     return (
-        <div style={{ backgroundImage: `url(${bgimage})` }} className="w-full min-h-[70vh] relative flex justify-center items-center">
+        <div style={{ backgroundImage: `url(${bgimage})` }} className="w-full min-h-[70vh] mt-10 relative flex justify-center items-center">
             <img className='w-full h-screen absolute -z-10' src={bgimage} alt="" />
             <div className="bg-[#373b41c9] text-white max-w-100 p-2.5 sm:p-6 rounded-3xl ">
                 <h3 className="font-bold text-3xl text-center">Welcome Back</h3>

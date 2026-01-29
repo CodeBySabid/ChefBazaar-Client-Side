@@ -3,7 +3,7 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 
 const PaymentChart = () => {
   const data = [
-    { month: "jan", value: 2000 },
+    { month: "jan", value: 0 },
     { month: "Feb", value: 3500 },
     { month: "Mar", value: 6000 },
     { month: "Apr", value: 20000 },
@@ -15,7 +15,7 @@ const PaymentChart = () => {
       <h1 className="font-semibold mb-4">Total Payment Trend</h1>
       <ResponsiveContainer width="100%" height={250}>
         <LineChart data={data}>
-          <XAxis dataKey="month">
+          <XAxis>
           </XAxis>
           <YAxis></YAxis>
           <Tooltip></Tooltip>

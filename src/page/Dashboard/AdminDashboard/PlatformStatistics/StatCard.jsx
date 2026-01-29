@@ -8,6 +8,25 @@ const StatCard = () => {
   const axiosSecure = useAxiosSecure();
   const { role, loading } = useRole();
 
+  const {data: pending = [], refetch} = useQuery({
+    queryKey: ['pending'],
+    queryFn: (async() => {
+      const res = await axiosSecure.get(`/order-pending`)
+      return res.data
+    })
+  })
+
+  const {data: delivered = []} = useQuery({
+    queryKey: ['delivered'],
+    queryFn: (async() => {
+      const res = await axiosSecure.get(`/order-delivered`)
+      return res.data
+    })
+  })
+
+  refetch()
+
+
   const { data: users = [], isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: (async () => {
@@ -50,7 +69,7 @@ const StatCard = () => {
           </div>
           <div>
             <p className="text-sm text-gray-500">Orders Delivered{ }</p>
-            <h2 className="text-2xl font-bold">1,230{ }</h2>
+            <h2 className="text-2xl font-bold">{delivered.length}</h2>
           </div>
         </div>
       </div>
@@ -61,7 +80,7 @@ const StatCard = () => {
           </div>
           <div>
             <p className="text-sm text-gray-500">Orders Pending{ }</p>
-            <h2 className="text-2xl font-bold">45{ }</h2>
+            <h2 className="text-2xl font-bold">{pending.length}</h2>
           </div>
         </div>
       </div>
