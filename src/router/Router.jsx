@@ -24,6 +24,9 @@ import UserOrder from "../page/Dashboard/UserDashboard/UserOrder";
 import FraudPage from "../page/fraudPage/FraudPage";
 import UpDateMeal from "../page/Dashboard/ChefDashboard/UpDateMeal";
 import ErrorPage from "../page/error/ErrorPageProps ";
+import PaymentHistory from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentHistory";
+import PaymentSuccess from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentSuccess";
+import PaymentCancelled from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentCancelled";
 
 export const router = createBrowserRouter([
     {
@@ -105,6 +108,18 @@ export const router = createBrowserRouter([
                     {
                         path: 'my-order',
                         element: <UserRouter><UserOrder></UserOrder></UserRouter> ,
+                    },
+                    {
+                        path: 'payment-history',
+                        element: <UserRouter><PaymentHistory></PaymentHistory></UserRouter> ,
+                    },
+                    {
+                        path: 'payment-success',
+                        element: <UserRouter><PaymentSuccess></PaymentSuccess></UserRouter> ,
+                    },
+                    {
+                        path: 'payment-canceled',
+                        element: <UserRouter><PaymentCancelled></PaymentCancelled></UserRouter> ,
                     },
                 ]
             },

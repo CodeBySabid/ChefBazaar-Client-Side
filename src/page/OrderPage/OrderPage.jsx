@@ -71,19 +71,22 @@ const OrderPage = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Do it!"
         })
             .then((result) => {
                 if (result.isConfirmed) {
                     const orderData = {
                         foodId: id,
                         foodName: data.MealName,
+                        chefName: foods.chefName,
                         price: foods.price,
                         quantity: data.Quantity,
                         totalPrice: foods.price * data.Quantity,
-                        chefId: foods.ChefId,
+                        chefId: foods.chefId,
+                        foodImage: foods.foodImage,
                         paymentStatus: "Pending",
                         userEmail: data.UserEmail,
+                        chefEmail: foods.userEmail,
                         userAddress: data.UserAddress,
                         orderStatus: "Pending",
                         orderTime: new Date(),
@@ -97,6 +100,7 @@ const OrderPage = () => {
                                     icon: "success"
                                 });
                                 reset();
+                                navigate('/dashboard/my-order')
                             }
                         })
                 }
@@ -104,8 +108,8 @@ const OrderPage = () => {
     }
 
     return (
-        <div className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
-            <div className='max-w-100  w-125 p-4 mt-10 bg-[#6062699d] rounded-3xl'>
+        <div className='w-full pt-10 pb-2 bg-base-1 bg-center min-h-screen flex justify-center items-center px-1.5'>
+            <div className='max-w-100  w-125 p-4 mt-10 bg-base-300 rounded-3xl'>
                 <h1 className='text-center text-4xl font-bold mb-2.5  w-full'>Order</h1>
                 <form onSubmit={handleSubmit(handleOder)}>
                     <label className='label mt-2'>MealName</label>
