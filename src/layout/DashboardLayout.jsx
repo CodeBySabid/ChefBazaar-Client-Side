@@ -8,22 +8,20 @@ import useRole from '../hook/useRole';
 import { FaBowlFood, FaCartFlatbed } from 'react-icons/fa6';
 import { MdFoodBank, MdMenuBook, MdRateReview } from 'react-icons/md';
 import { GiFoodTruck } from 'react-icons/gi';
+import { GrHistory } from 'react-icons/gr';
 
 const DashboardLayout = () => {
     const { role } = useRole();
     return (
-        <div className='pt-12 sm:pt-16 bg-base-200 min-h-screen'>
-            <div className="drawer lg:drawer-open">
+        <div className='pt-12 sm:pt-16 bg-base-300 min-h-screen'>
+            <div className="drawer lg:drawer-open relative">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     {/* Navbar */}
-                    <nav className="navbar w-full bg-base-300">
-                        <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
-                            {/* Sidebar toggle icon */}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1 inline-block size-5"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-                        </label>
-                        <div className="px-4">ChefBazaar</div>
-                    </nav>
+                    <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-ghost bg-base-300 border-none rounded-l-2xl rounded-r-none fixed top-20 right-0 z-50">
+
+                        <svg  data-tip="My Profile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1 inline-block size-5"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
+                    </label>
                     <div><Outlet></Outlet></div>
                 </div>
 
@@ -89,6 +87,13 @@ const DashboardLayout = () => {
                                             <span className="is-drawer-close:hidden">Favorite Meal</span>
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link to={'/dashboard/payment-history'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+                                            {/* Home icon */}
+                                            <GrHistory className="my-1 inline-block size-5"></GrHistory  >
+                                            <span className="is-drawer-close:hidden">Payment History</span>
+                                        </Link>
+                                    </li>
                                 </>
                             }
                             {
@@ -96,21 +101,21 @@ const DashboardLayout = () => {
                                     <li>
                                         <Link to={'/dashboard/create-meal'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Create meal">
                                             {/* Home icon */}
-                                            <MdFoodBank  className="my-1 inline-block size-5"></MdFoodBank >
+                                            <MdFoodBank className="my-1 inline-block size-5"></MdFoodBank >
                                             <span className="is-drawer-close:hidden">Create meal</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={'/dashboard/chef-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Meals">
                                             {/* Home icon */}
-                                            <MdMenuBook  className="my-1 inline-block size-5"></MdMenuBook  >
+                                            <MdMenuBook className="my-1 inline-block size-5"></MdMenuBook  >
                                             <span className="is-drawer-close:hidden">My Meals</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={'/dashboard/order-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Statistics">
                                             {/* Home icon */}
-                                            <FaCartFlatbed  className="my-1 inline-block size-5"></FaCartFlatbed   >
+                                            <FaCartFlatbed className="my-1 inline-block size-5"></FaCartFlatbed   >
                                             <span className="is-drawer-close:hidden">Order requests</span>
                                         </Link>
                                     </li>

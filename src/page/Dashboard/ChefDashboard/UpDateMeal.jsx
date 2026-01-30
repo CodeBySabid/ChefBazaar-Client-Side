@@ -13,7 +13,7 @@ const UpDateMeal = () => {
     const { id } = useParams();
     const { register, reset, handleSubmit, formState: { errors }, } = useForm();
 
-    const { data: meals = [], isLoading } = useQuery({
+    const { data: meals = [], isLoading, refetch } = useQuery({
         queryKey: ['meals', id],
         enabled: !!id,
         queryFn: (async () => {
@@ -78,6 +78,7 @@ const UpDateMeal = () => {
             }
             reset();
             navigate('/dashboard/chef-meals')
+            refetch()
         })
     };
 
@@ -209,7 +210,7 @@ const UpDateMeal = () => {
 
 
 
-                    <button className="btn btn-neutral w-full mt-4">Register</button>
+                    <button  className="btn btn-neutral w-full mt-4">Register</button>
                 </form>
             </div>
             <ToastContainer></ToastContainer>

@@ -10,7 +10,7 @@ const OrderRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
 
-  const { data: users = {}} = useQuery({
+  const { data: users = {} } = useQuery({
     queryKey: ['users', user?.email],
     enabled: !!user?.email,
     queryFn: (async () => {
@@ -127,8 +127,7 @@ const OrderRequests = () => {
                       Accepted
                     </button>
                     <button
-                      onClick={() => handeStatus(order._id, order.foodName, 'Deliver')}
-                      className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
+                      className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500/50 cursor-not-allowed text-white py-2 rounded-lg"
                     >
                       Deliver
                     </button>
@@ -163,43 +162,24 @@ const OrderRequests = () => {
                         :
                         <div>
                           {
-                            order.orderStatus === 'Deliver' || order.orderStatus === 'Cancel' ?
-                              <div className="flex flex-wrap gap-3 mt-4">
-                                <button
-                                  className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-blue-500/50 cursor-not-allowed text-white py-2 rounded-lg"
-                                >
-                                  Accepted
-                                </button>
-                                <button
-                                  className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500/50 cursor-not-allowed text-white py-2 rounded-lg"
-                                >
-                                  Deliver
-                                </button>
-                                <button
-                                  className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-red-500/50 cursor-not-allowed text-white py-2 rounded-lg"
-                                >
-                                  Cancel
-                                </button>
-                              </div>
-                              :
-                              <div className="flex flex-wrap gap-3 mt-4">
-                                <button
-                                  className="flex-1 min-w-26 cursor-not-allowed flex items-center justify-center gap-2 bg-blue-500/50 text-white py-2 rounded-lg"
-                                >
-                                  Accepted
-                                </button>
-                                <button
-                                  onClick={() => handeStatus(order._id, order.foodName, 'Deliver')}
-                                  className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
-                                >
-                                  Deliver
-                                </button>
-                                <button
-                                  className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-red-500/50 text-white py-2 rounded-lg cursor-not-allowed"
-                                >
-                                  Cancel
-                                </button>
-                              </div>
+                            (order.orderStatus === 'Deliver' || order.orderStatus === 'Cancel') &&
+                            <div className="flex flex-wrap gap-3 mt-4">
+                              <button
+                                className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-blue-500/50 cursor-not-allowed text-white py-2 rounded-lg"
+                              >
+                                Accepted
+                              </button>
+                              <button
+                                className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500/50 cursor-not-allowed text-white py-2 rounded-lg"
+                              >
+                                Deliver
+                              </button>
+                              <button
+                                className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-red-500/50 cursor-not-allowed text-white py-2 rounded-lg"
+                              >
+                                Cancel
+                              </button>
+                            </div>
                           }
                         </div>
                     }

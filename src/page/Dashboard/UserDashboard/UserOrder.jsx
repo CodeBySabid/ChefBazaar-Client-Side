@@ -92,7 +92,7 @@ const UserOrder = () => {
                             {
                                 order.orderStatus === 'Accept' &&
                                 <p className="text-lg font-bold">
-                                    Payment Status : {order.paymentStatus}
+                                    Payment Status : {order.paymentStatus === 'Paid' ? <span className='text-green-500'>Paid</span> : <span className='text-yellow-500'>Pending</span>}
                                 </p>
                             }
 

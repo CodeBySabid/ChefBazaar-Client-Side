@@ -6,13 +6,15 @@ import useAxiosSecure from '../../../hook/useAxiosSecure';
 import UseAuth from '../../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const CreateMeals = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = UseAuth();
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const navigate = useNavigate();
 
-    const { data: chefInfo = [] } = useQuery({
+    const { data: chefInfo = [], refetch } = useQuery({
         queryKey: ['users', user?.email],
         enabled: !!user?.email,
         queryFn: (async () => {
@@ -61,6 +63,8 @@ const CreateMeals = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            navigate('/dashboard/chef-meals'),
+                            refetch()
                         }
                     })
             })
