@@ -3,6 +3,7 @@ import { FaUsers, FaDollarSign, FaTruck, FaClock } from "react-icons/fa";
 import useAxiosSecure from "../../../../hook/useAxiosSecure";
 import useRole from "../../../../hook/useRole";
 import { useQuery } from "@tanstack/react-query";
+import Loading from '../../../loading/Loading';
 
 const StatCard = () => {
   const axiosSecure = useAxiosSecure();
@@ -46,8 +47,9 @@ const StatCard = () => {
   );
   
 
-  if (isLoading || loading) {
-    return <span className="loading loading-spinner text-primary"></span>
+  
+  if(loading || isLoading) {
+    return <Loading></Loading>
   }
 
   return (

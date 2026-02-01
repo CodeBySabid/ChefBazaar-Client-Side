@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion } from "motion/react";
 import Swal from "sweetalert2";
-import { FaTrash, FaEdit, FaStar } from "react-icons/fa";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import UseAuth from '../../../hook/UseAuth';
 import { MdLocationPin } from 'react-icons/md';
+import Loading from '../../loading/Loading';
 
 const OrderRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
 
-  const { data: users = {} } = useQuery({
+  const { data: users = {}, isLoading } = useQuery({
     queryKey: ['users', user?.email],
     enabled: !!user?.email,
     queryFn: (async () => {
@@ -55,6 +55,10 @@ const OrderRequests = () => {
             })
         }
       })
+  }
+
+  if(isLoading) {
+    return <Loading></Loading>
   }
 
   return (

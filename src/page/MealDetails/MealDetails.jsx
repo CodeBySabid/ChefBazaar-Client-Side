@@ -9,6 +9,7 @@ import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router';
 import useRole from '../../hook/useRole';
+import Loading from '../loading/Loading';
 
 
 const MealDetails = () => {
@@ -20,7 +21,7 @@ const MealDetails = () => {
     const { id } = useParams();
 
 
-    const { data: foods = [] } = useQuery({
+    const { data: foods = [], isLoading } = useQuery({
         queryKey: ["food"],
         queryFn: (async () => {
             const res = await axiosSecure.get(`/food/${id}`);
@@ -55,8 +56,6 @@ const MealDetails = () => {
             return res.data;
         })
     })
-
-    console.log(users)
 
     const handleReview = (data) => {
         const userInfo = {
@@ -111,6 +110,11 @@ const MealDetails = () => {
                 }
             })
     }
+
+        
+  if(isLoading) {
+    return <Loading></Loading>
+  }
 
     return (
         <div className='flex flex-col bg-base-200 items-center w-screen pt-16 max-sm:pt-12'>

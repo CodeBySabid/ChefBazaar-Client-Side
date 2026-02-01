@@ -4,6 +4,7 @@ import useAxiosSecure from '../../hook/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import useRole from '../../hook/useRole';
 import Swal from 'sweetalert2';
+import Loading from '../loading/Loading';
 
 const Profile = () => {
     const axiosSecure = useAxiosSecure();
@@ -18,7 +19,7 @@ const Profile = () => {
         return d.toISOString().split('T')[0];
     };
 
-    const { data: users = {}, refetch } = useQuery({
+    const { data: users = {}, refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         enabled: !!user?.email,
         queryFn: (async () => {
@@ -54,6 +55,11 @@ const Profile = () => {
                 }
             })
     }
+
+  if(isLoading) {
+    return <Loading></Loading>
+  }
+
     return (
         <div className="min-h-screen px-4 w-screen flex items-center justify-center bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700">
             <div className="bg-white rounded-3xl shadow-xl w-full max-w-md p-8 text-center">
@@ -100,19 +106,19 @@ const Profile = () => {
                     <h1>{formatDate(users.createdAt)}</h1>
                 </div>
                 {
-                    role === 'Admin' ? '' : <div className='w-full gap-2 mt-2 flex justify-center items-center'>
+                    role === 'Admin' ? '' : <div className='w-full flex gap-2 mt-2 justify-center items-center'>
                         {
                             role === 'Chef' ? "" : <>
                                 {
                                     users.requestInfo === "Chef" ? <button
-                                        className="relative px-6 cursor-not-allowed rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black text-white"
+                                        className="relative w-full max-px-6 cursor-not-allowed rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black text-white"
                                     >
-                                        <span className="relative text-xl font-semibold">Be a Chef</span>
+                                        <span className="relative text-xl  min-w-10 w-full font-semibold">Be a Chef</span>
                                     </button> : <button onClick={() => handleRequest('Chef')}
-                                        className="relative cursor-pointer px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black hover:bg-linear-to-r hover:from-gray-600 hover:to-black text-white transition-all ease-out duration-300"
+                                        className="relative w-full cursor-pointer max-px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black hover:bg-linear-to-r hover:from-gray-600 hover:to-black text-white transition-all ease-out duration-300"
                                     >
                                         <span
-                                            className="absolute right-0 w-10 h-full top-0 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 -skew-x-12 group-hover:-translate-x-36 ease"
+                                            className="absolute right-0 min-w-10 w-full h-full top-0 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 -skew-x-12 group-hover:-translate-x-36 ease"
                                         ></span>
                                         <span className="relative text-xl font-semibold">Be a Chef</span>
                                     </button>
@@ -121,14 +127,15 @@ const Profile = () => {
                         }
                         {
                             users.requestInfo === 'Admin' ? <button
-                                className="relative cursor-not-allowed px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black text-white"
+                                className="relative w-full cursor-not-allowed max-px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black text-white"
                             >
-                                <span className="relative text-xl font-semibold">Be a Admin</span>
-                            </button> : <button onClick={() => handleRequest('Admin')}
-                                className="relative cursor-pointer px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black hover:bg-linear-to-r hover:from-gray-600 hover:to-black text-white transition-all ease-out duration-300"
+                                <span className="relative text-xl  min-w-10 w-full font-semibold">Be a Admin</span>
+                            </button> : 
+                            <button onClick={() => handleRequest('Admin')}
+                                className="relative w-full cursor-pointer max-px-6 rounded-2xl py-1.5 overflow-hidden group bg-linear-to-r from-gray-700 to-black hover:bg-linear-to-r hover:from-gray-600 hover:to-black text-white transition-all ease-out duration-300"
                             >
                                 <span
-                                    className="absolute right-0 w-10 h-full top-0 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 -skew-x-12 group-hover:-translate-x-36 ease"
+                                    className="absolute right-0 min-w-10 w-full h-full top-0 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 -skew-x-12 group-hover:-translate-x-36 ease"
                                 ></span>
                                 <span className="relative text-xl font-semibold">Be a Admin</span>
                             </button>

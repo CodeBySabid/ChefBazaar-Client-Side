@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../hook/useAxiosSecure';
 import useRole from '../../../hook/useRole';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import Loading from '../../loading/Loading';
 
 const ManagerUser = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,9 +17,10 @@ const ManagerUser = () => {
         })
     })
 
-    if (isLoading || loading) {
-        return <span className="loading loading-spinner text-primary"></span>
-    }
+
+  if(loading || isLoading) {
+    return <Loading></Loading>
+  }
 
     const handleFraud = (data, status) => {
         Swal.fire({

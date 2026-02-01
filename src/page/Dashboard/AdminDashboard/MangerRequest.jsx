@@ -2,6 +2,7 @@ import React from 'react';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import Loading from '../../loading/Loading';
 
 const MangerRequest = () => {
     const axiosSecure = useAxiosSecure();
@@ -13,10 +14,10 @@ const MangerRequest = () => {
         })
     })
 
-    if (isLoading) {
-        return <div className='w-full flex justify-center'><span className="loading loading-spinner text-secondary"></span></div>
-    }
 
+  if(isLoading) {
+    return <Loading></Loading>
+  }
     const handleRequest = (id, name, status) => {
         Swal.fire({
             title: "Are you sure?",

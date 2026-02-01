@@ -6,6 +6,7 @@ import { FaTrash, FaEdit, FaStar } from "react-icons/fa";
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import useRole from '../../../hook/useRole';
 import { Link } from 'react-router';
+import Loading from '../../loading/Loading';
 
 const ChefMeals = () => {
     const axiosSecure = useAxiosSecure();
@@ -35,9 +36,10 @@ const ChefMeals = () => {
         });
     };
     
-    if (isLoading) {
-        return <p className="text-center mt-10">Loading meals...</p>;
-    }
+
+  if(isLoading) {
+    return <Loading></Loading>
+  }
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">

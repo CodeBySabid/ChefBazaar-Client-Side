@@ -13,7 +13,6 @@ const PaymentHistory = () => {
         }
     })
     // const handleDelete = id => {
-    //     console.log(id)
     //     Swal.fire({
     //         title: "Are you sure?",
     //         text: "You won't be able to revert this!",
@@ -25,7 +24,6 @@ const PaymentHistory = () => {
     //     })
     //         .then((result) => {
     //             if (result.isConfirmed) {
-    //                 console.log(id);
     //                 axiosSecure.delete(`/payments/${id}`)
     //                     .then(res => {
     //                         if (res.data.deletedCount) {

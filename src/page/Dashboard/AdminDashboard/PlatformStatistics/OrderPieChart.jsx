@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 const OrderPieChart = () => {
   const axiosSecure = useAxiosSecure();
 
-  const {data: pending = []} = useQuery({
+  const {data: pending = [], isLoading} = useQuery({
     queryKey: ['pending'],
     queryFn: (async() => {
       const res = await axiosSecure.get(`/order-pending`)
@@ -27,6 +27,12 @@ const OrderPieChart = () => {
     { name: "Pending", value: pending.length},
   ]
   const colors = ["#22c55e", "#f97316"];
+
+  
+  if(isLoading) {
+    return ''
+  }
+
   return (
     <div className="card bg-base-100 shadow-md p-4">
       <h2 className="font-semibold mb-4">Order Status Breakdown</h2>
