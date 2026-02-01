@@ -5,6 +5,7 @@ import { FaTrash, FaEdit, FaStar } from "react-icons/fa";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import UseAuth from '../../../hook/UseAuth';
+import { MdLocationPin } from 'react-icons/md';
 
 const OrderRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -28,7 +29,7 @@ const OrderRequests = () => {
     })
   })
 
-  const handeStatus = (id, name, status) => {
+  const handleStatus = (id, name, status) => {
     Swal.fire({
       title: "Are you sure?",
       text: `Do you want to ${name} order ${status}?`,
@@ -114,14 +115,14 @@ const OrderRequests = () => {
                 <p className="text-sm">
                   ⏱ {new Date(order.orderTime).toLocaleString().split('T')[0]}
                 </p>
-                <p>{order.userAddress}</p>
+                <p className='flex gap-1 items-center'><MdLocationPin /> {order.userAddress}</p>
               </div>
               {/* Buttons */}
               {
                 order.orderStatus === 'Pending' ?
                   <div className="flex flex-wrap gap-3 mt-4">
                     <button
-                      onClick={() => handeStatus(order._id, order.foodName, 'Accept')}
+                      onClick={() => handleStatus(order._id, order.foodName, 'Accept')}
                       className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
                     >
                       Accepted
@@ -132,7 +133,7 @@ const OrderRequests = () => {
                       Deliver
                     </button>
                     <button
-                      onClick={() => handeStatus(order._id, order.foodName, 'Cancel')}
+                      onClick={() => handleStatus(order._id, order.foodName, 'Cancel')}
                       className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition cursor-pointer"
                     >
                       Cancel
@@ -148,7 +149,7 @@ const OrderRequests = () => {
                             Accepted
                           </button>
                           <button
-                            onClick={() => handeStatus(order._id, order.foodName, 'Deliver')}
+                            onClick={() => handleStatus(order._id, order.foodName, 'Deliver')}
                             className="flex-1 min-w-26 flex items-center justify-center gap-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
                           >
                             Deliver

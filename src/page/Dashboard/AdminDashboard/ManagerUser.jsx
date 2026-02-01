@@ -36,12 +36,12 @@ const ManagerUser = () => {
                     axiosSecure.patch(`/makefraud/${data._id}`, makeFraud)
                         .then(res => {
                             if (res.data.modifiedCount) {
-                                refetch()
                                 Swal.fire({
                                     title: "Success!",
                                     text: `${data.name} has been fraud successfully.`,
                                     icon: "success"
                                 });
+                                refetch();
                             }
                         })
                 }
@@ -76,7 +76,7 @@ const ManagerUser = () => {
                                             user.role === "Admin" ?
                                                 ''
                                                 :
-                                                user.MakeFraud === 'Fraud' ?
+                                                user.status === 'Fraud' ?
                                                     <button className='w-27.25 font-bold rounded-sm text-sm h-7 cursor-not-allowed bg-red-500/50 text-black/80 border-none'>Make Fraud</button>
                                                     :
                                                     <button onClick={() => handleFraud(user, 'Fraud')} className='btn h-7 bg-red-500'>Make Fraud</button>

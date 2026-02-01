@@ -82,7 +82,7 @@ const Navbar = ({ openLogin, openRegister }) => {
     const userProfile = <>
         <div className="relative group">
             {user ? (
-                <Link to={'/dashboard/profile'}>
+                <Link to={'/dashboard'}>
                     <img className="rounded-full w-11.25 h-11.25 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="profile" />
                 </Link>
             ) : ''}

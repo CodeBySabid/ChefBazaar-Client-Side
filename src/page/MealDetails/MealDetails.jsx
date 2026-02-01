@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import UseAuth from '../../hook/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router';
+import useRole from '../../hook/useRole';
 
 
 const MealDetails = () => {
@@ -47,6 +48,16 @@ const MealDetails = () => {
         })
     })
 
+    const { data: users = [] } = useQuery({
+        queryKey: ['users'],
+        queryFn: (async () => {
+            const res = await axiosSecure.get(`/users/${user.email}`)
+            return res.data;
+        })
+    })
+
+    console.log(users)
+
     const handleReview = (data) => {
         const userInfo = {
             foodId: id,
@@ -73,7 +84,7 @@ const MealDetails = () => {
             })
             .catch(error => {
                 if (error.status === 400) {
-                    toast.error('Please update your review!')
+                    toast.error('You have reviewed it once. Please update your review!')
                 }
             })
     }
@@ -91,10 +102,11 @@ const MealDetails = () => {
                         showCancelButton: false,
                         timer: 2000,
                     });
+                    refetch()
                 }
             })
             .catch(error => {
-                if(error.status === 301 ){
+                if (error.status === 301) {
                     toast.error('Already added to favorites')
                 }
             })
@@ -144,7 +156,7 @@ const MealDetails = () => {
 
                                 <div>Price</div>
                                 <div className="text-center">:</div>
-                                <div>${foods.price}</div>
+                                <div>${foods.price} Only</div>
 
                                 <div>Delivery Area</div>
                                 <div className="text-center">:</div>
@@ -152,19 +164,22 @@ const MealDetails = () => {
 
                                 <div>Delivery Time</div>
                                 <div className="text-center">:</div>
-                                <div>{foods.estimatedDeliveryTime}</div>
+                                <div>{foods.estimatedDeliveryTime} Minute Only</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className='flex w-full justify-center mt-10 sm:gap-6 gap-1.5'>
-                    <div className='flex justify-center'>
-                        <Link to={`/order/${foods._id}`} className="btn-17">
-                            <span className="text-container">
-                                <span className="text">Order Now</span>
-                            </span>
-                        </Link>
-                    </div>
+                    {
+                        users.status === "Fraud" ? '' :
+                            <div className='flex justify-center'>
+                                <Link to={`/order/${foods._id}`} className="btn-17">
+                                    <span className="text-container">
+                                        <span className="text">Order Now</span>
+                                    </span>
+                                </Link>
+                            </div>
+                    }
                     <div className='flex justify-center'>
                         <button onClick={() => handleFavorite(foods._id)} className="btn-17">
                             <span className="text-container flex ">

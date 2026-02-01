@@ -87,7 +87,7 @@ const ChefMeals = () => {
                             </div>
 
                             <p className="text-sm">
-                                ⏱ {meal.estimatedDeliveryTime}
+                                ⏱ {meal.estimatedDeliveryTime} Minute Only
                             </p>
 
                             <div>

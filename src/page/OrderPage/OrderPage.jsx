@@ -12,8 +12,7 @@ const OrderPage = () => {
     const { user } = UseAuth();
     const { id } = useParams();
 
-
-    const { data: users = {} } = useQuery({
+    const { data: users = {}, refetch } = useQuery({
         queryKey: ['users', user?.email],
         enabled: !!user?.email,
         queryFn: (async () => {
@@ -22,14 +21,8 @@ const OrderPage = () => {
         })
     })
 
-    useEffect(() => {
-        if (users.MakeFraud === 'Fraud') {
-            navigate('/fraud')
-        }
-    }, [navigate, users])
-
     const formatDate = (dateString) => {
-        return new Date(dateString).toISOString().split('T')[0];
+        return new Date(dateString).toLocaleTimeString().split('T')[0];
     }
 
     const { data: foods = [] } = useQuery({
@@ -99,12 +92,17 @@ const OrderPage = () => {
                                     text: "Order placed successfully!",
                                     icon: "success"
                                 });
+                                refetch();
                                 reset();
                                 navigate('/dashboard/my-order')
                             }
                         })
                 }
             });
+    }
+
+    if (users.status === 'Fraud') {
+        return navigate('/fraud')
     }
 
     return (

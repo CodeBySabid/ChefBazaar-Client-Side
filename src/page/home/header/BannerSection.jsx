@@ -46,9 +46,6 @@ const BannerSection = () => {
                             <Link to={'/all-meal'} className="btn btn-primary px-8">
                                 <FaUtensils className="mr-2" /> Explore Meals
                             </Link>
-                            <button className="btn btn-outline">
-                                <FaMapMarkerAlt className="mr-2" /> Find Chefs Nearby
-                            </button>
                         </motion.div>
                     </motion.div>
 

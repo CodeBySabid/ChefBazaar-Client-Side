@@ -1,7 +1,6 @@
 import { FaUsers, FaDollarSign, FaTruck, FaClock } from "react-icons/fa";
 import PaymentChart from "./PaymentChart";
 import OrderPieChart from "./OrderPieChart";
-import UserGrowthChart from "./UserGrowthChart";
 import StatCard from "./StatCard"
 
 const PlatformStatistics = () => {
@@ -24,8 +23,6 @@ const PlatformStatistics = () => {
         <PaymentChart />
         <OrderPieChart />
       </div>
-
-      <UserGrowthChart />
     </div>
   );
 };

@@ -23,6 +23,15 @@ const CreateMeals = () => {
         })
     })
 
+    const { data: users = {} } = useQuery({
+        queryKey: ['users', user?.email],
+        enabled: !!user?.email,
+        queryFn: (async () => {
+            const result = await axiosSecure.get(`/users/${user.email}`)
+            return result.data
+        })
+    })
+
     useEffect(() => {
         if (chefInfo) {
             reset({
@@ -64,7 +73,7 @@ const CreateMeals = () => {
                                 timer: 1500
                             });
                             navigate('/dashboard/chef-meals'),
-                            refetch()
+                                refetch()
                         }
                     })
             })
@@ -73,7 +82,9 @@ const CreateMeals = () => {
     return (
         <div className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
             <div className='max-w-100 p-4 bg-[#6062699d] rounded-3xl'>
-                <h1 className='text-4xl text-center font-semibold border-b pb-1'>Create A Meal</h1>
+                {
+                    users.status === "Fraud" ? <p className='text-center text-2xl py-1.5 text-red-500 mx-auto border-b pb-1'>You can't create any meal</p> : <h1 className='text-4xl text-center font-semibold border-b pb-1'>Create A Meal</h1>
+                }
                 <form onSubmit={handleSubmit(handleMeal)}>
                     {/* Food Name field */}
                     <label className='label mt-2'>Food Name</label>
@@ -122,11 +133,20 @@ const CreateMeals = () => {
                     {/* Rating field */}
                     <label className='label mt-2'>Rating</label>
                     <input
-                        {...register("rating", { required: true })}
-                        type='text'
+                        type="number"
+                        min={0}
+                        max={5}
+                        step="0.1"
                         className="input bg-transparent outline-none w-full mt-1"
-                        placeholder="Rating"
-                        readOnly
+                        {...register("rating", {
+                            required: true,
+                            onChange: (e) => {
+                                let value = Number(e.target.value);
+                                if (value === 0) e.target.value = 0;
+                                if (value < 0) e.target.value = 0;
+                                if (value > 5) e.target.value = 5;
+                            },
+                        })}
                     />
                     {
                         errors.rating?.type === "required" && <p className='text-red-500 text-sm mt-1'>Rating is required</p>
@@ -192,8 +212,9 @@ const CreateMeals = () => {
                     }
 
 
-
-                    <button className="btn btn-neutral w-full mt-4">Register</button>
+                    {
+                        users.status === "Fraud" ? <p className='mt-4 text-center py-1.5 text-red-500 mx-auto rounded bg-base-300'>You can't create any meal</p> : <button className="btn btn-neutral w-full mt-4">Create Meals </button>
+                    }
                 </form>
             </div>
             <ToastContainer></ToastContainer>

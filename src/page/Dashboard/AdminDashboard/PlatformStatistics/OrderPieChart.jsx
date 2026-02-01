@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 const OrderPieChart = () => {
   const axiosSecure = useAxiosSecure();
 
-  const {data: pending = [], refetch} = useQuery({
+  const {data: pending = []} = useQuery({
     queryKey: ['pending'],
     queryFn: (async() => {
       const res = await axiosSecure.get(`/order-pending`)
@@ -21,8 +21,6 @@ const OrderPieChart = () => {
       return res.data
     })
   })
-
-  refetch()
 
   const data = [
     { name: "Delivered", value: delivered.length },

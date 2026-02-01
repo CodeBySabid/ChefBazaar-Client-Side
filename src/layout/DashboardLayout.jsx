@@ -9,6 +9,7 @@ import { FaBowlFood, FaCartFlatbed } from 'react-icons/fa6';
 import { MdFoodBank, MdMenuBook, MdRateReview } from 'react-icons/md';
 import { GiFoodTruck } from 'react-icons/gi';
 import { GrHistory } from 'react-icons/gr';
+import Profile from '../page/Dashboard/Profile';
 
 const DashboardLayout = () => {
     const { role } = useRole();
@@ -18,8 +19,7 @@ const DashboardLayout = () => {
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     {/* Navbar */}
-                    <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-ghost bg-base-300 border-none rounded-l-2xl rounded-r-none fixed top-20 right-0 z-50">
-
+                    <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-ghost bg-linear-to-r/hsl from-indigo-500 to-teal-400 border-none rounded-l-2xl rounded-r-none fixed top-20 right-0 z-50">
                         <svg  data-tip="My Profile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1 inline-block size-5"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
                     </label>
                     <div><Outlet></Outlet></div>
@@ -30,14 +30,14 @@ const DashboardLayout = () => {
                     <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
                         {/* Sidebar content here */}
                         <ul className="menu w-full grow">
-                            {/* List item */}
                             <li>
-                                <Link to={'/dashboard/profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
+                                <Link to={'/dashboard'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
                                     {/* Home icon */}
                                     <CgProfile className="my-1 inline-block size-5"></CgProfile>
                                     <span className="is-drawer-close:hidden">My Profile</span>
                                 </Link>
                             </li>
+                            {/* List item */}
                             {
                                 role === 'Admin' && <>
                                     <li>
@@ -113,7 +113,7 @@ const DashboardLayout = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'/dashboard/order-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Statistics">
+                                        <Link to={'/dashboard/order-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Order Requests">
                                             {/* Home icon */}
                                             <FaCartFlatbed className="my-1 inline-block size-5"></FaCartFlatbed   >
                                             <span className="is-drawer-close:hidden">Order requests</span>

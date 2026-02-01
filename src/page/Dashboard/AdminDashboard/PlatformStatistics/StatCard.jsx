@@ -8,26 +8,23 @@ const StatCard = () => {
   const axiosSecure = useAxiosSecure();
   const { role, loading } = useRole();
 
-  const {data: pending = [], refetch} = useQuery({
+  const { data: pending = [] } = useQuery({
     queryKey: ['pending'],
-    queryFn: (async() => {
+    queryFn: (async () => {
       const res = await axiosSecure.get(`/order-pending`)
       return res.data
     })
   })
 
-  const {data: delivered = []} = useQuery({
+  const { data: delivered = [] } = useQuery({
     queryKey: ['delivered'],
-    queryFn: (async() => {
+    queryFn: (async () => {
       const res = await axiosSecure.get(`/order-delivered`)
       return res.data
     })
   })
 
-  refetch()
-
-
-  const { data: users = [], isLoading } = useQuery({
+  const { data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: (async () => {
       const res = await axiosSecure.get(`/manager/${role}`);
@@ -35,9 +32,24 @@ const StatCard = () => {
     })
   })
 
+  const { data: payments = [], isLoading } = useQuery({
+    queryKey: ['payment'],
+    queryFn: (async () => {
+      const res = await axiosSecure.get(`/payment-chart`);
+      return res.data
+    })
+  })
+
+  const totalPayment = payments.reduce(
+    (sum, item) => sum + item.totalAmount,
+    0
+  );
+  
+
   if (isLoading || loading) {
     return <span className="loading loading-spinner text-primary"></span>
   }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div className="card bg-base-100 shadow-md">
@@ -46,8 +58,8 @@ const StatCard = () => {
             <FaDollarSign size={24} />
           </div>
           <div>
-            <p className="text-sm text-gray-500">Total Payment Amount{ }</p>
-            <h2 className="text-2xl font-bold">$150,450{ }</h2>
+            <p className="text-sm text-gray-500">Total Payment Amount</p>
+            <h2 className="text-2xl font-bold">$ {totalPayment}</h2>
           </div>
         </div>
       </div>

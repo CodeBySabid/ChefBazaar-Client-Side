@@ -16,6 +16,8 @@ const UserOrder = () => {
         })
     })
 
+    
+
     const handlePayment = async (order) => {
         const paymentInfo = {
             price: order.totalPrice,
@@ -89,12 +91,9 @@ const UserOrder = () => {
                             <p className="text-sm">
                                 ⏱ {new Date(order.orderTime).toLocaleString().split('T')[0]}
                             </p>
-                            {
-                                order.orderStatus === 'Accept' &&
-                                <p className="text-lg font-bold">
-                                    Payment Status : {order.paymentStatus === 'Paid' ? <span className='text-green-500'>Paid</span> : <span className='text-yellow-500'>Pending</span>}
-                                </p>
-                            }
+                            <p className="text-lg font-bold">
+                                Payment Status : {order.paymentStatus === 'Paid' ? <span className='text-green-500'>Paid</span> : <span className='text-yellow-500'>Pending</span>}
+                            </p>
 
                             {/* Buttons */}
                             {

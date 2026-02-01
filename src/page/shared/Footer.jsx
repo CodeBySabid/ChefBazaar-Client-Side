@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='pt-3  bg-base-300'>
+        <div className='py-3 bg-base-300'>
             <footer className="footer sm:footer-horizontal text-base-content p-10">
                 <aside>
                     <svg
@@ -43,6 +43,7 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
+            <h1 className='text-center text-xl my-1.5'>© 2026 ChefBazaar. All rights reserved.</h1>
         </div>
     );
 };
