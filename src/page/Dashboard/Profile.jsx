@@ -61,7 +61,7 @@ const Profile = () => {
   }
 
     return (
-        <div className="min-h-screen px-4 w-screen flex items-center justify-center bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700">
+        <div className="min-h-screen px-4 w-screen flex items-center justify-center  bg-linear-to-t from-sky-500 to-indigo-500">
             <div className="bg-white rounded-3xl shadow-xl w-full max-w-md p-8 text-center">
                 {/* Profile Image */}
                 <div className="flex justify-center -mt-20 mb-2">

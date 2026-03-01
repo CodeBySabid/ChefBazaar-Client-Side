@@ -193,7 +193,7 @@ const MealDetails = () => {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(handleReview)}>
-                    <div className="max-w-xl mx-auto bg-base-100 shadow-lg rounded-2xl p-6 mt-6">
+                    <div className="max-w-xl mx-auto bg-base-100 shadow-lg rounded-xl p-6 mt-6">
                         <h2 className="text-xl font-semibold text-center mb-4">
                             Give Your Review
                         </h2>

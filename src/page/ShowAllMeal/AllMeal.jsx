@@ -67,7 +67,7 @@ const AllMeal = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="bg-base-100 rounded-3xl shadow-lg overflow-hidden border"
+              className="bg-base-100 rounded-xl shadow-lg overflow-hidden border"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">

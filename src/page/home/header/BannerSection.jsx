@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const BannerSection = () => {
     return (
         <div>
-            <section className="bg-base-200 py-20 max-sm:py-14 flex items-center">
+            <section className="bg-base-200 pt-22 pb-7 max-sm:pb-12 max-sm:pt-18 flex items-center">
                 <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Content */}
                     <motion.div
@@ -60,7 +60,7 @@ const BannerSection = () => {
                         <motion.div
                             animate={{ y: [0, -15, 0] }}
                             transition={{ repeat: Infinity, duration: 3 }}
-                            className="bg-primary/10 p-12 rounded-3xl shadow-xl"
+                            className="bg-primary/10 p-12 rounded-xl shadow-xl"
                         >
                             <FaUtensils className="text-7xl text-primary" />
                             <p className="mt-4 font-semibold text-center">Local Home Chefs</p>

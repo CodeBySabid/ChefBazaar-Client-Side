@@ -30,7 +30,7 @@ const DailyMealsSection = () => {
 
                         {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+                      opacity-0 dark:opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
                             <Link to={`/meal-details/${food._id}`} className="btn btn-primary">
                                 See Details
                             </Link>

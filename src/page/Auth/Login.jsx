@@ -9,13 +9,16 @@ import { toast, ToastContainer } from 'react-toastify';
 const Login = () => {
     const { loginUser, user } = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const naviget = useNavigate();
     const location = useLocation();
     const handleLogin = (data) => {
+        setLoading(true);
         loginUser(data.email, data.password)
             .then(() => {
-                naviget(location?.state?.from?.pathname || '/')
+                naviget(location?.state?.from?.pathname || '/');
+                toast.success('Login successfully!')
             })
             .catch(error => {
                 if (error.code === "auth/user-not-found") {
@@ -33,6 +36,9 @@ const Login = () => {
                 else {
                     toast.error(error.message);
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
     useEffect(() => {
@@ -55,7 +61,9 @@ const Login = () => {
                     <input
                         {...register("email", { required: true })}
                         className="input bg-transparent outline-none w-full mt-2"
-                        placeholder="Enter your Email" />
+                        placeholder="Enter your Email" 
+                        type='email'
+                        />
                     {
                         errors.email?.type === "required" && <p className='text-red-500 text-sm mt-1'>Email is required</p>
                     }
@@ -66,7 +74,7 @@ const Login = () => {
                         <input
                             {...register("password", { required: true })}
                             type={`${showPassword ? "text" : "password"}`}
-                            className="input w-full bg-transparent outline-none mt-1 pr-12"
+                            className="input w-full bg-transparent mt-1 pr-12"
                             placeholder="Password" />
                         {
                             errors.password?.type === "required" && <p className='text-red-500 text-sm mt-1'>Password is required</p>
@@ -80,13 +88,24 @@ const Login = () => {
 
                     <Link className='text-sm relative top-1'>Forgot Password?</Link>
 
-                    <button className="btn btn-neutral w-full mt-4">Login</button>
+                    <button
+                        className="btn bg-black btn-neutral w-full mt-4"
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <span className="loading loading-spinner loading-sm text-blue-600"></span>
+                                Logging in...
+                            </>
+                        ) : (
+                            "Login"
+                        )}
+                    </button>
                 </form>
                 <p>
                     Don’t have an account? <Link to={'/register'} className='text-red-400 hover:font-semibold hover:text-blue-400'>Sign Up</Link>
                 </p>
             </div>
-            <ToastContainer></ToastContainer>
         </div>
     );
 };

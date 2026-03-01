@@ -6,15 +6,18 @@ import UseAuth from '../../hook/UseAuth';
 import { toast, ToastContainer } from 'react-toastify';
 const LoginModal = ({ open, onClose, goRegister }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { loginUser } = UseAuth();
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     const handleLogin = (data) => {
+        setLoading(true);
         loginUser(data.email, data.password)
             .then(() => {
                 navigate(location?.state?.from?.pathname || '/')
                 reset();
+                toast.success('Login successfully!')
                 onClose();
             })
             .catch(error => {
@@ -33,6 +36,9 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                 else {
                     toast.error(error.message);
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -87,9 +93,19 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                     </div>
 
                     <Link className='text-sm relative top-1'>Forgot Password?</Link>
-
-                    <button className="btn btn-neutral w-full mt-4">Login</button>
-
+                    <button
+                        className="btn bg-black btn-neutral w-full mt-4"
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <span className="loading loading-spinner loading-sm text-blue-600"></span>
+                                Logging in...
+                            </>
+                        ) : (
+                            "Login"
+                        )}
+                    </button>
                 </form>
                 <p className="text-sm mt-3 text-center">
                     Don’t have an account?{" "}
@@ -101,7 +117,6 @@ const LoginModal = ({ open, onClose, goRegister }) => {
                     </span>
                 </p>
             </div>
-            <ToastContainer></ToastContainer>
         </dialog>
     );
 };

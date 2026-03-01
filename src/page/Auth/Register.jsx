@@ -12,6 +12,7 @@ const Register = () => {
     const { registerUser, updateUserProfile, socialLogin } = UseAuth()
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation()
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm()
@@ -19,6 +20,7 @@ const Register = () => {
     const password = watch("password");
 
     const handleRegistration = (data) => {
+        setLoading(true);
         const profileImg = data.profileimage[0];
         registerUser(data.email, data.password)
             .then(() => {
@@ -49,6 +51,7 @@ const Register = () => {
                             .then()
                     })
                 navigate(location?.state?.from?.pathname || '/');
+                toast.success('Registration successfully!')
                 reset();
             }).catch(error => {
                 if (error.code === "auth/user-not-found") {
@@ -69,6 +72,9 @@ const Register = () => {
                 else {
                     toast.error(error.message);
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -94,14 +100,14 @@ const Register = () => {
     return (
         <div style={{ backgroundImage: `url(${bgimage})` }} className='w-full pt-10 pb-2 bg-cover bg-center min-h-screen flex justify-center items-center px-1.5'>
             <div className='max-w-100 p-4 mt-10 bg-[#6062699d] rounded-3xl'>
-                <h3 className="font-bold text-3xl text-center">Welcome Back</h3>
-                <h3 className="font-bold text-sm text-center">Login with ChefBazaar</h3>
-                <hr className='border-[#838080] my-4 w-[90%] mx-auto' />
+                <h3 className="font-bold text-3xl text-center">Welcome</h3>
+                <h3 className="font-bold text-sm text-center">Registration with ChefBazaar</h3>
+                <hr className='border-[#838080] my-2.5 w-[90%] mx-auto' />
                 <h1 className='text-center text-4xl font-bold mb-2.5'>Registration</h1>
 
                 <form onSubmit={handleSubmit(handleRegistration)}>
                     {/* Name field */}
-                    <label className='label mt-2'>Name</label>
+                    <label className='mt-2'>Name</label>
                     <input
                         {...register("name", { required: true })}
                         type='text'
@@ -112,7 +118,7 @@ const Register = () => {
                     }
 
                     {/* Email field */}
-                    <label className='label mt-2'>Email</label>
+                    <label className='mt-2'>Email</label>
                     <input
                         {...register("email", { required: true })}
                         type='email'
@@ -123,7 +129,7 @@ const Register = () => {
                     }
 
                     {/* Profile Image field */}
-                    <label className='label mt-2'>Profile Image</label>
+                    <label className='mt-2'>Profile Image</label>
                     <input
                         {...register("profileimage", { required: true })}
                         type='file'
@@ -134,7 +140,7 @@ const Register = () => {
                     }
 
                     {/* Address field */}
-                    <label className='label mt-2'>Address</label>
+                    <label className='mt-2'>Address</label>
                     <input
                         {...register("address", { required: true })}
                         type='text'
@@ -146,7 +152,7 @@ const Register = () => {
 
                     {/* password field */}
                     <div className='mt-2 relative'>
-                        <label className='label'>Password</label>
+                        <label>Password</label>
                         <input
                             {...register("password", {
                                 required: true,
@@ -174,7 +180,7 @@ const Register = () => {
 
                     {/* Confirm Password field */}
                     <div className='mt-2 relative'>
-                        <label className='label'>Confirm Password</label>
+                        <label>Confirm Password</label>
                         <input
                             {...register("confirmpassword", {
                                 required: "Confirm Password is required",
@@ -192,8 +198,19 @@ const Register = () => {
                             }
                         </span>
                     </div>
-
-                    <button className="btn btn-neutral w-full mt-4">Register</button>
+                    <button
+                        className="btn bg-black btn-neutral w-full mt-4"
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <span className="loading loading-spinner loading-sm text-blue-600"></span>
+                                Registration in...
+                            </>
+                        ) : (
+                            "Registration"
+                        )}
+                    </button>
                 </form>
                 <p>
                     Already have an account? <Link className='text-red-600 hover:text-blue-600 hover:font-semibold' to={'/login'}>Login</Link>
@@ -203,7 +220,6 @@ const Register = () => {
                     Login with Google
                 </button>
             </div>
-            <ToastContainer></ToastContainer>
         </div>
     );
 };

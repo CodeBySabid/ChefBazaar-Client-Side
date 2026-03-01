@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import LoginModal from '../page/Auth/LoginModal';
 import RegisterModal from '../page/Auth/RegisterModal';
 import Footer from '../page/shared/Footer';
+import { ToastContainer } from 'react-toastify';
 
 const RootLayout = () => {
     const [authModal, setAuthModal] = useState(null);
@@ -31,6 +32,7 @@ const RootLayout = () => {
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>
+            <ToastContainer />
         </div>
     );
 };

@@ -6,58 +6,59 @@ import logo from '../../assets/chef-logo-restaurant-food-vector-600w-1739601476.
 import '../ButtonStyle/loginbutton.css'
 import UseAuth from '../../hook/UseAuth';
 import { FaUserCircle } from 'react-icons/fa';
+import { ToastContainer } from 'react-toastify';
 
 const Navbar = ({ openLogin, openRegister }) => {
     const { user, logOut } = UseAuth();
-    const [hideNav, setHideNav] = useState(false);
-    const lastScroll = useRef(0);
+    // const [hideNav, setHideNav] = useState(false);
+    // const lastScroll = useRef(0);
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [theme, setTheme] = useState("dark");
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > lastScroll.current) {
-                setHideNav(true);
-            }
-            else {
-                setHideNav(false);
-            }
-            lastScroll.current = window.scrollY;
-        }
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         if (window.scrollY > lastScroll.current) {
+    //             setHideNav(true);
+    //         }
+    //         else {
+    //             setHideNav(false);
+    //         }
+    //         lastScroll.current = window.scrollY;
+    //     }
+    //     window.addEventListener("scroll", handleScroll);
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // }, []);
 
-    useEffect(() => {
-        const handleClickOutsite = (e) => {
-            if (open && dropDown.current && !dropDown.current.contains(e.target)) {
-                setOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutsite);
-        return () => document.removeEventListener("mousedown", handleClickOutsite);
-    }, [open]);
+    // useEffect(() => {
+    //     const handleClickOutsite = (e) => {
+    //         if (open && dropDown.current && !dropDown.current.contains(e.target)) {
+    //             setOpen(false);
+    //         }
+    //     };
+    //     document.addEventListener("mousedown", handleClickOutsite);
+    //     return () => document.removeEventListener("mousedown", handleClickOutsite);
+    // }, [open]);
 
-    useEffect(() => {
-        const handleScrollOutsite = () => {
-            if (open) {
-                setOpen(false);
-            }
-        }
-        window.addEventListener("scroll", handleScrollOutsite);
-        return () => window.removeEventListener("scroll", handleScrollOutsite);
-    }, [open]);
+    // useEffect(() => {
+    //     const handleScrollOutsite = () => {
+    //         if (open) {
+    //             setOpen(false);
+    //         }
+    //     }
+    //     window.addEventListener("scroll", handleScrollOutsite);
+    //     return () => window.removeEventListener("scroll", handleScrollOutsite);
+    // }, [open]);
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 1024) {
-                setOpen(false)
-            }
-        }
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, [])
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //         if (window.innerWidth >= 1024) {
+    //             setOpen(false)
+    //         }
+    //     }
+    //     window.addEventListener("resize", handleResize);
+    //     return () => window.removeEventListener("resize", handleResize);
+    // }, [])
 
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
@@ -72,6 +73,7 @@ const Navbar = ({ openLogin, openRegister }) => {
     const links = <>
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Home</NavLink>
         <NavLink to={'/all-meal'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Meals</NavLink>
+        <NavLink to={'/about'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>About</NavLink>
         {
             user && <>
                 <NavLink to={'/dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "rounded-4xl text-blue-700 font-semibold" : "hover:text-blue-500"}>Dashboard</NavLink>
@@ -116,11 +118,11 @@ const Navbar = ({ openLogin, openRegister }) => {
     </>
 
     return (
-        <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"} bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
+        <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
             <div className='flex justify-between px-4 py-2 items-center'>
                 <Link className='flex items-center gap-2.5'>
-                    <img className='max-sm:h-9 h-12 rounded-full' src={logo} alt="" />
-                    <h1 className='text-3xl max-sm:text-xl font-bold'>ChefBazaar</h1>
+                    <img className='max-sm:h-9 sm:h-10  rounded-full' src={logo} alt="" />
+                    <h1 className='text-3xl max-sm:text-xl sm:text-2xl font-bold'>ChefBazaar</h1>
                 </Link>
                 <div className='hidden lg:flex gap-2.5'>
                     {

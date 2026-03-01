@@ -27,6 +27,7 @@ import ErrorPage from "../page/error/ErrorPageProps ";
 import PaymentHistory from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentHistory";
 import PaymentSuccess from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentSuccess";
 import PaymentCancelled from "../page/Dashboard/UserDashboard/PaymentInfo/PaymentCancelled";
+import About from "../page/about/About";
 
 export const router = createBrowserRouter([
     {
@@ -43,7 +44,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'fraud',
-                Component: FraudPage,
+                element: <PrivateRoute><FraudPage></FraudPage></PrivateRoute>,
+            },
+            {
+                path: 'about',
+                Component: About,
             },
             {
                 path: 'meal-details/:id',
