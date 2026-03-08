@@ -1,11 +1,42 @@
-project name : LocalChefBazaar
+# 🍽️ ChefBazaar - Client Side
+ChefBazaar is a modern food marketplace web application where users can explore talented chefs and their signature recipes in a visually engaging interface. The platform allows users to browse chef profiles, discover unique dishes, and enjoy a seamless browsing experience across different devices.
 
-live URL: https://deluxe-churros-2ada3d.netlify.app
+## 🔐 Authentication & Authorization
+- Secure user authentication system.
+- Login & registration using Firebase authentication.
+- Role-based access control (Admin / User).
+- Protected routes for private dashboard pages.
 
-purpose : LocalChefBazaar is a modern online platform that connects home cooks with people looking for fresh, homemade food.
+## 🚀 Key Features
+- 👨‍🍳 Browse different chefs and their recipes
+- 📄 View detailed chef information and signature dishes
+- 🔐 Secure authentication system
+- ⭐ Add recipes to favorites
+- ⚡ Dynamic data loading from API
+- 📱 Fully responsive design for mobile, tablet, and desktop
+- 🎨 Clean and modern user interface
 
-key features : Customers can explore daily menus, check a chef’s availability, place orders, pay securely, and track their orders in real time. For home cooks, it provides an easy way to earn money from their kitchen without the need for a physical restaurant. For consumers, it provides access to healthy, affordable, home-cooked food prepared by local chefs.
+## 🛠️ Technologies Used
+### Frontend:
+- React.js
+- React Router
+- Tailwind CSS
+- Axios
+### Authentication:
+- Firebase Authentication
+### Other Tools
+- React Icons
+- Toast Notifications
 
+## 🔗 Live Preview & Repositories
+- 🚀 Live Site: https://deluxe-churros-2ada3d.netlify.app
+- 💻 Client Repo: https://github.com/CodeBySabid/ChefBazaar-Client-Side
+- 🛠️ Server Repo: https://github.com/CodeBySabid/ChefBazaar-Server-Side
+
+## 🧑‍💻 Author
+- Developed by [@CodeBySabid](https://github.com/CodeBySabid)
+
+npm package
 (1) npm create vite@latest
 (2) npm install tailwindcss @tailwindcss/vite
 (3) npm i -D daisyui@latest
